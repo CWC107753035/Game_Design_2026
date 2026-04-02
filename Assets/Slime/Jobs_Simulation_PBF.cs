@@ -41,8 +41,8 @@ namespace Slime
         public const float h2 = h * h;
         public const float CellSize = 0.5f * h;
         public const float Mass = 1.0f;
-        public const float Scale = 0.1f;
-        public const float InvScale = 10f;
+        public const float Scale = 0.15f;    // Increased from 0.1 to compensate for fewer particles (Width 8 vs 12)
+        public const float InvScale = 6.667f; // 1 / Scale
     
         public struct Int2Comparer : IComparer<int2>
         {

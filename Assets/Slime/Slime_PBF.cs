@@ -44,9 +44,8 @@ namespace Slime
         
         [Header("Freezing Effect")]
         public float freezeSpeed = 2.0f; // How fast it transitions
-        [ColorUsage(true, true)] public Color normalColor = new Color(0.2f, 0.6f, 1.0f);
-        [ColorUsage(true, true)] public Color frozenColor = new Color(0.8f, 0.9f, 1.0f, 0.8f);
-        public float frozenViscosity = 100f; 
+        public Material frozenMat;       // Assign the ice material in the Inspector
+        public float frozenViscosity = 100f;
 
         private float _originalViscosity;
         private float _originalBubbleSpeed;
@@ -249,11 +248,6 @@ namespace Slime
             _originalViscosity = viscosityStrength;
             _originalBubbleSpeed = bubbleSpeed;
 
-            if (mat != null)
-            {
-                string colorProp = mat.HasProperty("_BaseColor") ? "_BaseColor" : "_Color";
-                mat.SetColor(colorProp, normalColor);
-            }
 
             // Anisotropic covariance runs a per-particle EVD — disabled for performance.
             useAnisotropic = false;
@@ -328,7 +322,11 @@ namespace Slime
             else if (renderMode == RenderMode.Surface)
             {
                 if (_mesh != null && !isFog)
-                    Graphics.DrawMesh(_mesh, Matrix4x4.TRS(_bounds.min, Quaternion.identity, Vector3.one), mat, 0);
+                {
+                    // Use frozenMat when freeze factor crosses halfway, otherwise the normal mat
+                    Material drawMat = (frozenMat != null && _freezeFactor >= 0.5f) ? frozenMat : mat;
+                    Graphics.DrawMesh(_mesh, Matrix4x4.TRS(_bounds.min, Quaternion.identity, Vector3.one), drawMat, 0);
+                }
 
 #if !UNITY_WEBGL
                 if (!isFog) Graphics.DrawMeshInstancedProcedural(particleMesh, 0, bubblesMat, _bounds, PBF_Utils.BubblesCount);
@@ -363,7 +361,7 @@ namespace Slime
                     Rotation = trans.rotation,
                 }.Schedule(_particles.Length, batchCount).Complete();
                 
-                // Swap purely spherical player collider for a perfectly matched shape-mesh
+                // Swap spherical liquid collider for a convex hull of the frozen shape
                 if (TryGetComponent<SphereCollider>(out var sc))
                     sc.enabled = false;
 
@@ -387,12 +385,12 @@ namespace Slime
                     mc.sharedMesh = _mesh;
                     mc.enabled = true;
                 }
+                // Note: Unity may warn about >256 polygons but still produces a valid partial hull.
             }
             else if (!isFrozen && _wasFrozen)
             {
                 _wasFrozen = false;
                 
-                // Revert back to loose liquid collider
                 Transform frozenColl = trans.Find("FrozenCollider");
                 if (frozenColl != null)
                 {
@@ -990,20 +988,14 @@ namespace Slime
         }
         private void ProcessFreezing()
         {
-            // Smoothly transition the freeze factor (0 to 1)
+            // Smoothly transition the freeze factor (0 = liquid, 1 = frozen)
             float targetFactor = isFrozen ? 1f : 0f;
             _freezeFactor = Mathf.MoveTowards(_freezeFactor, targetFactor, Time.fixedDeltaTime * freezeSpeed);
 
-            // Apply changes to PBF Physics
+            // Apply physics changes
             viscosityStrength = Mathf.Lerp(_originalViscosity, frozenViscosity, _freezeFactor);
             bubbleSpeed = Mathf.Lerp(_originalBubbleSpeed, 0f, _freezeFactor);
-
-            // Apply changes to the Material Color
-            if (mat != null)
-            {
-                string colorProp = mat.HasProperty("_BaseColor") ? "_BaseColor" : "_Color";
-                mat.SetColor(colorProp, Color.Lerp(normalColor, frozenColor, _freezeFactor));
-            }
+            // Material swap is handled in Update via Graphics.DrawMesh (no Renderer component on this object)
         }
     }
 }
