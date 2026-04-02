@@ -653,28 +653,39 @@ namespace Slime
         {
             _controllerBuffer.Clear();
 
-            for (int i = 0; i < _componentsBuffer.Length; i++)
+            // --- Split disabled ---
+            // Always treat the slime as a single body by using only the largest component.
+            // This prevents controller confusion, freeze-on-split bugs, and other weird interactions.
+            // Stray particles are still attracted back via the toMain velocity below.
+
+            if (_componentsBuffer.Length == 0) return;
+
+            // Find the largest component by CellCount
+            int largestIdx = 0;
+            for (int i = 1; i < _componentsBuffer.Length; i++)
             {
-                var component = _componentsBuffer[i];
-                float3 extent = component.BoundsMax - component.Center;
-                // float radius = math.max(extent.x , math.max(extent.y, extent.z)) * PBF_Utils.CellSize * 1.5f;
-                float radius = math.max(1, (extent.x + extent.y + extent.z) * PBF_Utils.CellSize * 0.6f);
-                float3 center = minPos + component.Center * PBF_Utils.CellSize;
-                if (extent.y < 3)
-                    center.y += extent.y * PBF_Utils.Scale * PBF_Utils.CellSize;
-                
-                // Automatically command separated rogue pieces to crawl back to the main body!
-                float3 diff = (float3)trans.position * PBF_Utils.InvScale - center;
-                float3 toMain = math.normalizesafe(diff) * math.clamp(math.length(diff) * 1.5f, 6f, 20f);
-                
-                _controllerBuffer.Add(new ParticleController()
-                {
-                    Center = center,
-                    Radius = radius * 1.5f, // Increase radius to ensure it grabs all rogue particles around its center
-                    Velocity = toMain,
-                    Concentration = concentration,
-                });
+                if (_componentsBuffer[i].CellCount > _componentsBuffer[largestIdx].CellCount)
+                    largestIdx = i;
             }
+
+            var component = _componentsBuffer[largestIdx];
+            float3 extent = component.BoundsMax - component.Center;
+            float radius = math.max(1, (extent.x + extent.y + extent.z) * PBF_Utils.CellSize * 0.6f);
+            float3 center = minPos + component.Center * PBF_Utils.CellSize;
+            if (extent.y < 3)
+                center.y += extent.y * PBF_Utils.Scale * PBF_Utils.CellSize;
+
+            // Pull all particles (including any stray pieces) toward the main body center
+            float3 diff = (float3)trans.position * PBF_Utils.InvScale - center;
+            float3 toMain = math.normalizesafe(diff) * math.clamp(math.length(diff) * 1.5f, 6f, 20f);
+
+            _controllerBuffer.Add(new ParticleController()
+            {
+                Center = center,
+                Radius = radius * 2.0f, // Wide radius so stray particles are also gathered
+                Velocity = toMain,
+                Concentration = concentration,
+            });
             
             RearrangeInstances();
         }

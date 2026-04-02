@@ -226,19 +226,35 @@ namespace Slime
                 Particle p = Ps[i];
 
                 var velocity = Velocity[i] * 0.99f + Gravity * PBF_Utils.DeltaTime;
-                if (p.ID >= 0 && p.ID < Controllers.Length)
+
+                // Always find and apply the nearest controller to every particle,
+                // regardless of p.ID. This ensures split-off stray pieces are always
+                // attracted back to the main body and can never get permanently stuck.
+                if (Controllers.Length > 0)
                 {
-                    ParticleController cl = Controllers[p.ID];
-                    // float3 toCenter = cl.Center + new float3(0, cl.Radius * 0.3f, 0) - p.Position;
+                    int bestController = 0;
+                    float bestDist = float.MaxValue;
+                    for (int c = 0; c < Controllers.Length; c++)
+                    {
+                        float d = math.lengthsq(Controllers[c].Center - p.Position);
+                        if (d < bestDist) { bestDist = d; bestController = c; }
+                    }
+
+                    ParticleController cl = Controllers[bestController];
                     float3 toCenter = cl.Center + new float3(0, cl.Radius * 0.05f, 0) - p.Position;
                     float len = math.length(toCenter);
 
                     if (len < cl.Radius)
                     {
-                        // velocity += PBF_Utils.DeltaTime * 0.5f * math.max(0, 1 - len*len*0.01f) * MoveDir;
                         velocity = math.lerp(cl.Velocity, velocity, math.lerp(1, len * 0.1f, cl.Concentration * 0.002f));
                         velocity += cl.Concentration * PBF_Utils.DeltaTime * math.min(1, len) *
                                     math.normalizesafe(toCenter);
+                    }
+                    else
+                    {
+                        // Outside the radius: apply a strong pull back toward the controller center
+                        // so stray particles always converge instead of floating away forever.
+                        velocity += math.normalizesafe(toCenter) * cl.Concentration * PBF_Utils.DeltaTime * 2.0f;
                     }
                 }
 
