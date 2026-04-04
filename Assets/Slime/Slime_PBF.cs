@@ -31,7 +31,7 @@ namespace Slime
         [SerializeField, Range(0, 1)] private float bubbleSpeed = 0.2f;
         [SerializeField, Range(0, 100)] private float viscosityStrength = 1.0f;
         [SerializeField, Range(0.1f, 100)] private float concentration = 10f;
-        [SerializeField, Range(-10, 10)] private float gravity = -5f;
+        public float gravity = -5f;
         [SerializeField, Range(0, 5)] private float threshold = 1f;
         [SerializeField] private bool useAnisotropic = false;
         
@@ -54,6 +54,8 @@ namespace Slime
         [Header("Fog Toggles")]
         public bool isFog = false; // Toggles visual rendering so particles can seamlessly take over
         public float fogGravity = -0.5f; // Decreased gravity so fog glides softly
+        public float fogSphereRadius = 0.1f; // Smaller radius for fog form sphere collider
+        public float normalSphereRadius = 0.25f; // Normal radius for slime form sphere collider
         public ParticleSystem fogParticles; // The unity particles attached to the player instance
         private bool _wasFog = false;
         private float _lastFormChangeTime = 0f;
@@ -248,6 +250,10 @@ namespace Slime
             _originalViscosity = viscosityStrength;
             _originalBubbleSpeed = bubbleSpeed;
 
+            // Set initial sphere collider radius to public normal radius
+            if (TryGetComponent<SphereCollider>(out var sc))
+                sc.radius = normalSphereRadius;
+
 
             // Anisotropic covariance runs a per-particle EVD — disabled for performance.
             useAnisotropic = false;
@@ -298,11 +304,17 @@ namespace Slime
                     fogParticles.gameObject.SetActive(true); 
                     fogParticles.Play();
                 }
+                // Set smaller radius for fog form
+                if (TryGetComponent<SphereCollider>(out var sc))
+                    sc.radius = fogSphereRadius;
             }
             else if (!isFog && _wasFog)
             {
                 _wasFog = false;
                 if (fogParticles != null) fogParticles.Stop();
+                // Restore normal radius
+                if (TryGetComponent<SphereCollider>(out var sc))
+                    sc.radius = normalSphereRadius;
             }
 
             if (isFog)
@@ -380,6 +392,18 @@ namespace Slime
                 if (mc == null) mc = frozenColl.gameObject.AddComponent<MeshCollider>();
                 
                 mc.convex = true;
+                
+                // Apply zero friction physics material to prevent wall hopping in ice form
+                PhysicsMaterial frozenMaterial = new PhysicsMaterial("FrozenIce")
+                {
+                    dynamicFriction = 0.1f,
+                    staticFriction = 0f,
+                    bounciness = 0.1f,
+                    frictionCombine = PhysicsMaterialCombine.Minimum,
+                    bounceCombine = PhysicsMaterialCombine.Minimum
+                };
+                mc.material = frozenMaterial;
+                
                 if (_mesh != null)
                 {
                     mc.sharedMesh = _mesh;

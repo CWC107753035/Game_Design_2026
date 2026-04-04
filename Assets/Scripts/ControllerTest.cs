@@ -6,22 +6,27 @@ namespace Slime
     public class ControllerTest : MonoBehaviour
     {
         [Range(1, 20)] public float speed = 10;
-        [SerializeField] private float jumpForce = 5f;
-        [SerializeField] private float groundRayLength = 1.2f; // tune to match slime size
+        [SerializeField] private float jumpHeight = 1.25f; // Target jump height in meters
+        [SerializeField] private float groundRayLength = 1.2f; // Tune to match slime size
 
         private Rigidbody _rb;
-        private float _jumpCooldown = 0f; // time until we can check ground again after a jump
+        private Slime_PBF _slimePbf;
+        private float _jumpCooldown = 0f; // Time until we can check ground again after a jump
 
         void Start()
         {
             _rb = GetComponent<Rigidbody>();
+            _slimePbf = GetComponent<Slime_PBF>();
+
+            // Disable Unity's default physics gravity so we can apply our custom PBF gravity consistently
+            if (_rb != null)
+                _rb.useGravity = false;
         }
 
         // Raycast straight down from slightly above center.
-        // Works regardless of which collider is active (sphere vs frozen mesh).
         private bool IsGrounded()
         {
-            if (_jumpCooldown > 0f) return false; // still in post-jump grace period
+            if (_jumpCooldown > 0f) return false; // Still in post-jump grace period
             Vector3 origin = transform.position + Vector3.up * 0.1f;
             return Physics.Raycast(origin, Vector3.down, groundRayLength, ~0, QueryTriggerInteraction.Ignore);
         }
@@ -31,11 +36,25 @@ namespace Slime
             if (_jumpCooldown > 0f)
                 _jumpCooldown -= Time.fixedDeltaTime;
 
+            ApplyManualGravity();
             HandleMovement();
+        }
+
+        private void ApplyManualGravity()
+        {
+            if (_slimePbf == null || _rb == null) return;
+
+            // Get gravity magnitude (expecting negative values from Slime_PBF)
+            float gravityVal = _slimePbf.isFog ? _slimePbf.fogGravity : _slimePbf.gravity;
+        
+            // Apply gravity force manually to the Rigidbody
+            _rb.AddForce(Vector3.up * gravityVal, ForceMode.Acceleration);
         }
 
         private void HandleMovement()
         {
+            if (_rb == null) return;
+
             Vector2 input = Vector2.zero;
             bool jumpPressed = false;
 
@@ -51,12 +70,19 @@ namespace Slime
 
             Vector3 moveDirection = new Vector3(input.x, 0, input.y).normalized;
             Vector3 targetVelocity = moveDirection * speed;
+            
+            // Maintain current vertical velocity for gravity/jumping
             targetVelocity.y = _rb.linearVelocity.y;
 
             if (jumpPressed && IsGrounded())
             {
-                targetVelocity.y = jumpForce;
-                _jumpCooldown = 1f; // block ground detection for 0.4s after jumping
+                // To maintain identical jump height H across different gravity values G:
+                // Velocity = sqrt(2 * |G| * H)
+                float currentGravityMag = Mathf.Abs(_slimePbf.isFog ? _slimePbf.fogGravity : _slimePbf.gravity);
+                float requiredJumpVelocity = Mathf.Sqrt(2f * currentGravityMag * jumpHeight);
+
+                targetVelocity.y = requiredJumpVelocity;
+                _jumpCooldown = 0.5f; 
             }
 
             _rb.linearVelocity = targetVelocity;
