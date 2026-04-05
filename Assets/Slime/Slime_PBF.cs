@@ -396,7 +396,7 @@ namespace Slime
                 // Apply zero friction physics material to prevent wall hopping in ice form
                 PhysicsMaterial frozenMaterial = new PhysicsMaterial("FrozenIce")
                 {
-                    dynamicFriction = 0.1f,
+                    dynamicFriction = 0f,
                     staticFriction = 0f,
                     bounciness = 0.1f,
                     frictionCombine = PhysicsMaterialCombine.Minimum,
