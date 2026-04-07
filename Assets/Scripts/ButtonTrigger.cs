@@ -14,11 +14,11 @@ public class ButtonTrigger : MonoBehaviour
         if (_hasBeenPushed)
             return;
 
-        if (!other.CompareTag("Player"))
+        Slime_PBF slime = other.GetComponentInParent<Slime_PBF>();
+        if (slime == null)
             return;
 
-        Slime_PBF slime = other.GetComponentInParent<Slime_PBF>();
-        if (slime != null && slime.isFog)
+        if (slime.isFog)
             return;
 
         doorAnimator.SetTrigger("open");
