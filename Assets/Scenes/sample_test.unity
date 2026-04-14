@@ -181,6 +181,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (33)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -243,6 +247,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -299,6 +307,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -357,6 +369,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -375,7 +391,7 @@ GameObject:
   - component: {fileID: 110939623}
   - component: {fileID: 110939622}
   - component: {fileID: 110939624}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -560,6 +576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (44)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -616,6 +636,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -679,6 +703,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -738,7 +766,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189091879}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 0.8200989, b: 0.8160377, a: 1}
@@ -990,6 +1018,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1047,6 +1079,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1103,6 +1139,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1268,6 +1308,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1570,6 +1614,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1658,6 +1706,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (51)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1743,9 +1795,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1652918237898053684, guid: 41996a6ea1c51594381fbbe2d45b1187, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2012108841}
-    - targetCorrespondingSourceObject: {fileID: 1652918237898053684, guid: 41996a6ea1c51594381fbbe2d45b1187, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2012108842}
   m_SourcePrefab: {fileID: 100100000, guid: 41996a6ea1c51594381fbbe2d45b1187, type: 3}
 --- !u!1001 &384931454
 PrefabInstance:
@@ -1798,6 +1847,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1855,6 +1908,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (45)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1969,6 +2026,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2093,6 +2154,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2159,6 +2224,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2248,6 +2317,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (50)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2304,6 +2377,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2366,6 +2443,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2499,6 +2580,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2555,6 +2640,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2632,6 +2721,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3045,6 +3138,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (52)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3142,6 +3239,10 @@ PrefabInstance:
     - target: {fileID: 7564636611156017616, guid: e7a79a14190d3d34f93236ba7164d734, type: 3}
       propertyPath: m_Name
       value: Floor_Flat (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564636611156017616, guid: e7a79a14190d3d34f93236ba7164d734, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8328509268577167364, guid: e7a79a14190d3d34f93236ba7164d734, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -3251,6 +3352,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3467,8 +3572,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25881907, y: 0, z: 0, w: 0.9659259}
-  m_LocalPosition: {x: 0, y: 4.458111, z: -5.9088464}
+  m_LocalRotation: {x: 0.21217766, y: 0, z: 0, w: 0.9772311}
+  m_LocalPosition: {x: 0, y: 3.7861075, z: -7.1082935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3646,6 +3751,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_Flat (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7564636611156017616, guid: e7a79a14190d3d34f93236ba7164d734, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8378305016021551963, guid: e7a79a14190d3d34f93236ba7164d734, type: 3}
       propertyPath: m_LocalScale.x
       value: 7
@@ -3751,6 +3860,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3807,6 +3920,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3934,6 +4051,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3990,6 +4111,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4052,6 +4177,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4222,6 +4351,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4401,6 +4534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4470,6 +4607,30 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1280315396}
   m_SourcePrefab: {fileID: 100100000, guid: 7a937ee5bc40ba142a195e3a41fa7258, type: 3}
+--- !u!1 &1330794564 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4605441503348668872, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+  m_PrefabInstance: {fileID: 1434832116}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1330794570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330794564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61cd1bf749feed6449d9bdabd495a960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraWallPush
+  followTarget: {fileID: 110939621}
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  defaultDistance: 4.35
+  minDistance: 0.5
+  pullSpeed: 2
 --- !u!1001 &1336631619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4685,27 +4846,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1652918237898053684, guid: 41996a6ea1c51594381fbbe2d45b1187, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1361979559}
-    - targetCorrespondingSourceObject: {fileID: 1652918237898053684, guid: 41996a6ea1c51594381fbbe2d45b1187, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1361979558}
   m_SourcePrefab: {fileID: 100100000, guid: 41996a6ea1c51594381fbbe2d45b1187, type: 3}
 --- !u!1 &1361979557 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1652918237898053684, guid: 41996a6ea1c51594381fbbe2d45b1187, type: 3}
   m_PrefabInstance: {fileID: 1361979556}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1361979558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361979557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 970f4a8fcab54ca4e8af1257e46991dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActivateCollider
 --- !u!65 &1361979559
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4793,6 +4939,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4913,6 +5063,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4929,6 +5083,10 @@ PrefabInstance:
     - target: {fileID: 7564636611156017616, guid: e7a79a14190d3d34f93236ba7164d734, type: 3}
       propertyPath: m_Name
       value: Floor_Flat
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564636611156017616, guid: e7a79a14190d3d34f93236ba7164d734, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8378305016021551963, guid: e7a79a14190d3d34f93236ba7164d734, type: 3}
       propertyPath: m_LocalScale.x
@@ -5006,19 +5164,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3844933587295746353, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.458111
+      value: 3.7861075
       objectReference: {fileID: 0}
     - target: {fileID: 3844933587295746353, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.9088464
+      value: -7.1082935
       objectReference: {fileID: 0}
     - target: {fileID: 3844933587295746353, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9659259
+      value: 0.9772311
       objectReference: {fileID: 0}
     - target: {fileID: 3844933587295746353, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.25881907
+      value: 0.21217766
       objectReference: {fileID: 0}
     - target: {fileID: 3844933587295746353, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: m_LocalRotation.y
@@ -5045,20 +5203,52 @@ PrefabInstance:
       value: VirtualCameraOne
       objectReference: {fileID: 0}
     - target: {fileID: 6987349340882084673, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      propertyPath: ReferenceFrame
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987349340882084673, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: TiltAxis.Value
-      value: 30
+      value: 24.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      propertyPath: Radius
+      value: 1.51
       objectReference: {fileID: 0}
     - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: TargetOffset.y
+      value: 2.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      propertyPath: TargetOffset.z
+      value: -2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      propertyPath: RadialAxis.Value
+      value: 3.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      propertyPath: RadialAxis.Center
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      propertyPath: RadialAxis.Range.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      propertyPath: RadialAxis.Range.y
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: VerticalAxis.Value
-      value: -10
+      value: 4.28
       objectReference: {fileID: 0}
     - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: HorizontalAxis.Value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      propertyPath: TrackerSettings.BindingMode
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9022120245123473065, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
       propertyPath: TrackerSettings.PositionDamping.y
@@ -5071,7 +5261,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4605441503348668872, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1330794570}
   m_SourcePrefab: {fileID: 100100000, guid: af9bf86440bc2f040a595f90d7741cc7, type: 3}
 --- !u!4 &1445716978 stripped
 Transform:
@@ -5139,6 +5332,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5271,6 +5468,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5327,6 +5528,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5419,6 +5624,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 1159351990771520630, guid: 91ad7bf144749b04ab484a680630a040, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5478,6 +5687,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (46)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5735,6 +5948,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6003,6 +6220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6064,6 +6285,10 @@ PrefabInstance:
     - target: {fileID: 1159351990771520630, guid: 91ad7bf144749b04ab484a680630a040, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159351990771520630, guid: 91ad7bf144749b04ab484a680630a040, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6159,6 +6384,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6178,9 +6407,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1937149026}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: walls
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6380,6 +6609,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (48)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6549,18 +6782,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.6175098, y: 0.27972487, z: 2.5489838}
   m_Center: {x: -0.019044995, y: 0.14623944, z: 1.2475644}
---- !u!114 &2012108842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2012108836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 970f4a8fcab54ca4e8af1257e46991dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActivateCollider
 --- !u!1001 &2031608354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6612,6 +6833,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6896,7 +7121,7 @@ GameObject:
   - component: {fileID: 2083888872}
   - component: {fileID: 2083888871}
   - component: {fileID: 2083888870}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: player_fog
   m_Icon: {fileID: 0}
@@ -11773,6 +11998,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Chiseled (47)
       objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11964,6 +12193,10 @@ PrefabInstance:
     - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452851889076682208, guid: aa603228f01a52941b56f6bdf72f0697, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12263,6 +12496,10 @@ PrefabInstance:
     - target: {fileID: 8018136850974657832, guid: 5a7efa08493ae2a41b1e5e08284a6d2b, type: 3}
       propertyPath: m_Name
       value: Wall_Chiseled (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8018136850974657832, guid: 5a7efa08493ae2a41b1e5e08284a6d2b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
