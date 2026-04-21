@@ -9,6 +9,12 @@ public class DirtEraser : MonoBehaviour
     public Transform character;
 
     [Header("Portal Settings")]
+    [Tooltip("Check this if you want the portal to load a completely different scene instead of teleporting locally!")]
+    public bool loadNewScene = false;
+    public string targetSceneName = "";
+    
+    [Space(10)]
+    [Tooltip("If not loading a new scene, this is the local transform to teleport to.")]
     public Transform teleportTarget;
     [Tooltip("Check this setting if THIS is the destination circle and you want it to act as a portal instantly without dirt!")]
     public bool isAlreadyCleanPortal = false;
@@ -19,8 +25,8 @@ public class DirtEraser : MonoBehaviour
     public float brushSize = 0.05f;
     public int maskResolution = 512;
     [Range(0f, 1f)]
-    [Tooltip("Percentage of the total area needed to erase (0.6 equals roughly 75% of a circle)")]
-    public float eraseThreshold = 0.6f;
+    [Tooltip("Percentage of the total area needed to erase (0.25 equals roughly 35% of a circle)")]
+    public float eraseThreshold = 0.25f;
 
     private RenderTexture dirtMask;
     private Texture2D drawTexture;
@@ -117,9 +123,12 @@ public class DirtEraser : MonoBehaviour
         {
             // Now fully operates as a two-way portal for any form!
             // We ONLY trigger when they ENTER the circle (!wasInCircle). This cleanly prevents teleport loops.
-            if (currentlyInCircle && !wasInCircle && teleportTarget != null && Time.time > globalTeleportCooldown)
+            if (currentlyInCircle && !wasInCircle && Time.time > globalTeleportCooldown)
             {
-                PerformTeleport();
+                if (loadNewScene || teleportTarget != null)
+                {
+                    PerformTeleport();
+                }
             }
 
             wasInCircle = currentlyInCircle;
@@ -136,7 +145,7 @@ public class DirtEraser : MonoBehaviour
 
             float erasePercentage = (float)clearedPixelsCount / totalPixelsCount;
             // Provide a helpful log for the user to tune their threshold!
-            // Debug.Log($"Erased: {erasePercentage * 100f:F1}% / {eraseThreshold * 100f}% required");
+            Debug.Log($"Wiped: {erasePercentage * 100f:F1}% / {eraseThreshold * 100f}% required");
 
             if (erasePercentage >= eraseThreshold)
             {
@@ -159,10 +168,17 @@ public class DirtEraser : MonoBehaviour
 
     void PerformTeleport()
     {
-        if (teleportTarget == null) return;
-
         // Apply a global cooldown so we don't instantly teleport back as soon as we arrive!
         globalTeleportCooldown = Time.time + 1.5f;
+
+        if (loadNewScene && !string.IsNullOrEmpty(targetSceneName))
+        {
+            Debug.Log("Teleporting to a completely new scene: " + targetSceneName);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(targetSceneName);
+            return;
+        }
+
+        if (teleportTarget == null) return;
 
         Vector3 oldPosition = character.position;
         Vector3 newPosition = teleportTarget.position + Vector3.up * 1f;

@@ -165,6 +165,10 @@ namespace Slime
         {
             _particles = new NativeArray<Particle>(PBF_Utils.Num, Allocator.Persistent);
             float half = PBF_Utils.Width / 2.0f;
+            
+            // Particles are stored in scaled space, so we determine the global start offset
+            float3 startOffset = (float3)trans.position * PBF_Utils.InvScale;
+
             for (int i = 0; i < PBF_Utils.Width / 2; i++)
             for (int j = 0; j < PBF_Utils.Width; j++)
             for (int k = 0; k < PBF_Utils.Width; k++)
@@ -172,7 +176,8 @@ namespace Slime
                 var idx = i * PBF_Utils.Width * PBF_Utils.Width + j * PBF_Utils.Width + k;
                 _particles[idx] = new Particle
                 {
-                    Position = new float3(k - half, j, i - half) * 0.5f,
+                    // Center the particle cube around the slime's actual starting position
+                    Position = startOffset + new float3(k - half, j, i - half) * 0.5f,
                     ID = 0,
                 };
             }
