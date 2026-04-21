@@ -44,6 +44,32 @@ public class CheckpointManager : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
+        // 1. Force player back into base Slime form
+        var slimePbf = _player.GetComponent<Slime.Slime_PBF>();
+        if (slimePbf != null)
+        {
+            slimePbf.isFog = false;
+            slimePbf.isFrozen = false;
+        }
+
+        Vector3 oldPosition = _player.position;
+
+        // 2. Perform the position reset
         _player.position = _respawnPoint;
+        Physics.SyncTransforms();
+
+        // 3. Immediately translate the PBF particles just like the portal to prevent physics drag
+        if (slimePbf != null)
+        {
+            Vector3 diff = _respawnPoint - oldPosition;
+            slimePbf.TeleportSystem(diff);
+        }
+
+        // 4. Snap the camera instantly
+        var cam = FindObjectOfType<PlayerCamera>();
+        if (cam != null)
+        {
+            cam.SnapToTarget();
+        }
     }
 }
