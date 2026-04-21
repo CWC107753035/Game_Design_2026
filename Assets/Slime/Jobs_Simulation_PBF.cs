@@ -391,7 +391,8 @@ namespace Slime
                 // float3 sign = math.sign(relativePos);
                 // relativePos = math.select(relativePos, sign * BoundsExtent, toBoundary > BoundsExtent);
                 // p.Position = relativePos + BoundsCenter;
-                p.Position.y = math.max(1f, p.Position.y);
+                // p.Position.y = math.max(1f, p.Position.y); // Removed hardcoded floor so Slime can go below Y=0
+
                 foreach (var box in Colliders)
                 {
                     float3 dir = p.Position - box.Center;
