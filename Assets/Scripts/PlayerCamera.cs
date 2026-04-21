@@ -128,4 +128,15 @@ public class PlayerCamera : MonoBehaviour
         transform.position = origin + rotation * Vector3.back * currentDistance;
         transform.rotation = rotation;
     }
+
+    public void SnapToTarget()
+    {
+        if (target != null)
+        {
+            currentFollowPos = target.position;
+            posVelocityXZ = Vector3.zero;
+            posVelocityY = 0f;
+            ApplyCameraTransform();
+        }
+    }
 }

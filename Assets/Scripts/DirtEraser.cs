@@ -1,0 +1,248 @@
+using UnityEngine;
+
+public class DirtEraser : MonoBehaviour
+{
+    [Header("References")]
+    [Tooltip("The dirt material using the Custom/URPDirtMasked shader")]
+    public Material dirtMaterial;
+    [Tooltip("The player or object that erases dirt")]
+    public Transform character;
+
+    [Header("Portal Settings")]
+    public Transform teleportTarget;
+    [Tooltip("Check this setting if THIS is the destination circle and you want it to act as a portal instantly without dirt!")]
+    public bool isAlreadyCleanPortal = false;
+    public static float globalTeleportCooldown = 0f;
+
+    [Header("Dirt Settings")]
+    public float heightOffset = 0.05f;
+    public float brushSize = 0.05f;
+    public int maskResolution = 512;
+    [Range(0f, 1f)]
+    [Tooltip("Percentage of the total area needed to erase (0.6 equals roughly 75% of a circle)")]
+    public float eraseThreshold = 0.6f;
+
+    private RenderTexture dirtMask;
+    private Texture2D drawTexture;
+    private bool isDirty = false;
+    private GameObject dirtOverlayPlane;
+    private MeshCollider overlayCollider;
+    private bool isFinished = false;
+    private bool[] clearedPixels;
+    private int clearedPixelsCount = 0;
+    private int totalPixelsCount;
+    private bool wasInCircle = false;
+
+    void Start()
+    {
+        if (isAlreadyCleanPortal)
+        {
+            isFinished = true;
+            return; // Skip setting up dirt entirely!
+        }
+
+        // 1. Generate the RenderTexture memory
+        dirtMask = new RenderTexture(maskResolution, maskResolution, 0, RenderTextureFormat.ARGB32);
+        dirtMask.Create();
+
+        // 2. Create a CPU-side texture matching the RenderTexture
+        drawTexture = new Texture2D(dirtMask.width, dirtMask.height, TextureFormat.RGBA32, false);
+        totalPixelsCount = dirtMask.width * dirtMask.height;
+        clearedPixels = new bool[totalPixelsCount];
+        
+        // Fill with white (fully dirty initially)
+        Color[] pixels = new Color[totalPixelsCount];
+        for (int i = 0; i < pixels.Length; i++)
+            pixels[i] = Color.white;
+        
+        drawTexture.SetPixels(pixels);
+        drawTexture.Apply();
+
+        Graphics.Blit(drawTexture, dirtMask);
+
+        // 3. Material Instantiation
+        if (dirtMaterial != null)
+        {
+            dirtMaterial = new Material(dirtMaterial);
+            dirtMaterial.SetTexture("_MaskTex", dirtMask);
+        }
+
+        // 4. Mesh Cloning Pipeline
+        CreateAutoDirtOverlay();
+    }
+
+    void CreateAutoDirtOverlay()
+    {
+        dirtOverlayPlane = new GameObject("Auto_Dirt_Overlay");
+        // We do NOT parent it so we can easily offset its world position upwards
+        dirtOverlayPlane.transform.position = this.transform.position + Vector3.up * heightOffset;
+        dirtOverlayPlane.transform.rotation = this.transform.rotation;
+        dirtOverlayPlane.transform.localScale = this.transform.lossyScale * 1.002f;
+
+        // Perfectly clone whatever mesh the magic circle currently uses!
+        MeshFilter parentMF = GetComponent<MeshFilter>();
+        if (parentMF != null)
+        {
+            MeshFilter childMF = dirtOverlayPlane.AddComponent<MeshFilter>();
+            childMF.sharedMesh = parentMF.sharedMesh;
+        }
+
+        if (dirtMaterial != null)
+        {
+            MeshRenderer mr = dirtOverlayPlane.AddComponent<MeshRenderer>();
+            mr.material = dirtMaterial;
+        }
+
+        // Add a physics collider specifically so we can do accurate UV raycasting!
+        // We set the layer to Ignore Raycast so it doesn't block player clicks
+        dirtOverlayPlane.layer = 2; // Layer 2 is 'Ignore Raycast' built-in Unity
+        overlayCollider = dirtOverlayPlane.AddComponent<MeshCollider>();
+    }
+
+    void Update()
+    {
+        if (character == null) return;
+        
+        // Check if player is standing over the portal logic-wise
+        bool currentlyInCircle = false;
+        float horizontalDist = Vector3.Distance(new Vector3(character.position.x, 0, character.position.z), 
+                                                new Vector3(transform.position.x, 0, transform.position.z));
+        float heightDiff = character.position.y - transform.position.y;
+        if (horizontalDist <= 2.5f && heightDiff >= -0.5f && heightDiff < 2.5f)
+        {
+            currentlyInCircle = true;
+        }
+
+        if (isFinished)
+        {
+            // Now fully operates as a two-way portal for any form!
+            // We ONLY trigger when they ENTER the circle (!wasInCircle). This cleanly prevents teleport loops.
+            if (currentlyInCircle && !wasInCircle && teleportTarget != null && Time.time > globalTeleportCooldown)
+            {
+                PerformTeleport();
+            }
+
+            wasInCircle = currentlyInCircle;
+            return;
+        }
+
+        wasInCircle = currentlyInCircle;
+        EraseAtCharacterPosition();
+
+        if (isDirty)
+        {
+            Graphics.Blit(drawTexture, dirtMask);
+            isDirty = false;
+
+            float erasePercentage = (float)clearedPixelsCount / totalPixelsCount;
+            // Provide a helpful log for the user to tune their threshold!
+            // Debug.Log($"Erased: {erasePercentage * 100f:F1}% / {eraseThreshold * 100f}% required");
+
+            if (erasePercentage >= eraseThreshold)
+            {
+                TriggerCompletion();
+            }
+        }
+    }
+
+    void TriggerCompletion()
+    {
+        isFinished = true;
+
+        if (dirtOverlayPlane != null)
+        {
+            Destroy(dirtOverlayPlane);
+        }
+
+        PerformTeleport();
+    }
+
+    void PerformTeleport()
+    {
+        if (teleportTarget == null) return;
+
+        // Apply a global cooldown so we don't instantly teleport back as soon as we arrive!
+        globalTeleportCooldown = Time.time + 1.5f;
+
+        Vector3 oldPosition = character.position;
+        Vector3 newPosition = teleportTarget.position + Vector3.up * 1f;
+
+        // Reset rigidbody velocities if they exist so it doesn't bounce violently
+        Rigidbody rb = character.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        // Teleport the core player!
+        character.position = newPosition;
+        Physics.SyncTransforms();
+        
+        // INSTANTLY TRANSLATE THE PBF FLUID! No swooshing or physics explosions.
+        Slime.Slime_PBF slimePbf = character.GetComponent<Slime.Slime_PBF>();
+        if (slimePbf != null)
+        {
+            Vector3 diff = newPosition - oldPosition;
+            slimePbf.TeleportSystem(diff);
+        }
+        
+        // INSTANTLY SNAP THE CAMERA! This prevents the "lerping swoop" visual effect completely.
+        PlayerCamera cam = Object.FindAnyObjectByType<PlayerCamera>();
+        if (cam != null)
+        {
+            cam.SnapToTarget();
+        }
+
+        Debug.Log("Teleporting to: " + teleportTarget.name);
+    }
+
+    void EraseAtCharacterPosition()
+    {
+        // Feature: Only the base SLIME form can erase dirt! (Not Ice or Steam)
+        Slime.Slime_PBF slime = character.GetComponent<Slime.Slime_PBF>();
+        if (slime != null && (slime.isFog || slime.isFrozen))
+        {
+            return; // Exit out, do not erase!
+        }
+
+        // Drop a tiny laser from above the character straight down to find EXACTLY where their feet hit the dirt
+        Vector3 rayStart = character.position + Vector3.up * 1f;
+        Ray ray = new Ray(rayStart, Vector3.down);
+
+        if (overlayCollider.Raycast(ray, out RaycastHit hit, 3f))
+        {
+            // By using hit.textureCoord, we get perfectly accurate UV positions regardless of the shape/scale/rotation!
+            float u = hit.textureCoord.x;
+            float v = hit.textureCoord.y;
+
+            // Paint clear (transparent) onto the CPU mask
+            int pixelX = Mathf.RoundToInt(u * drawTexture.width);
+            int pixelY = Mathf.RoundToInt(v * drawTexture.height);
+            int brushPixels = Mathf.RoundToInt(brushSize * drawTexture.width);
+
+            for (int x = -brushPixels; x <= brushPixels; x++)
+            {
+                for (int y = -brushPixels; y <= brushPixels; y++)
+                {
+                    // Circular brush shape
+                    if (x * x + y * y > brushPixels * brushPixels) continue;
+
+                    int px = Mathf.Clamp(pixelX + x, 0, drawTexture.width - 1);
+                    int py = Mathf.Clamp(pixelY + y, 0, drawTexture.height - 1);
+                    
+                    int pixelIndex = py * drawTexture.width + px;
+                    if (!clearedPixels[pixelIndex])
+                    {
+                        clearedPixels[pixelIndex] = true;
+                        clearedPixelsCount++;
+                        drawTexture.SetPixel(px, py, Color.clear);
+                    }
+                }
+            }
+
+            drawTexture.Apply();
+            isDirty = true;
+        }
+    }
+}

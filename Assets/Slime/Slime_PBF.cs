@@ -259,6 +259,39 @@ namespace Slime
             useAnisotropic = false;
         }
 
+        public struct TeleportParticlesJob : IJobParallelFor
+        {
+            public NativeArray<Particle> Ps;
+            public float3 Offset;
+            public void Execute(int i)
+            {
+                Particle p = Ps[i];
+                p.Position += Offset;
+                Ps[i] = p;
+            }
+        }
+
+        public struct TeleportPosJob : IJobParallelFor
+        {
+            public NativeArray<float3> PosList;
+            public float3 Offset;
+            public void Execute(int i)
+            {
+                PosList[i] += Offset;
+            }
+        }
+
+        public void TeleportSystem(Vector3 offset)
+        {
+            // Translates all raw PBF memory instantly to prevent drag swooshing or physics explosions
+            float3 shift = (float3)offset * PBF_Utils.InvScale;
+
+            if (_particles.IsCreated) new TeleportParticlesJob { Ps = _particles, Offset = shift }.Schedule(_particles.Length, batchCount).Complete();
+            if (_particlesTemp.IsCreated) new TeleportParticlesJob { Ps = _particlesTemp, Offset = shift }.Schedule(_particlesTemp.Length, batchCount).Complete();
+            if (_posPredict.IsCreated) new TeleportPosJob { PosList = _posPredict, Offset = shift }.Schedule(_posPredict.Length, batchCount).Complete();
+            if (_posOld.IsCreated) new TeleportPosJob { PosList = _posOld, Offset = shift }.Schedule(_posOld.Length, batchCount).Complete();
+        }
+
         private void OnDestroy()
         {
             if (_particles.IsCreated) _particles.Dispose();
