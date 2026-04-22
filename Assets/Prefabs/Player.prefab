@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1506923418022029152}
   - component: {fileID: 7621469126333881275}
   - component: {fileID: 2042996590323260127}
+  - component: {fileID: 8724315888585207218}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -148,6 +149,25 @@ MonoBehaviour:
   groundRayLength: 0.5
   jumpBufferTime: 0.15
   fogJumpCooldown: 2.6
+--- !u!114 &8724315888585207218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6167551702896940110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6548de4f4b9f65c4d9b17dac793a09ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Slime.DropShadow
+  maxShadowDistance: 5
+  baseScale: 1.25
+  offset: {x: 0, y: 0.05, z: 0}
+  shadowOpacity: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &6172472260992663260
 GameObject:
   m_ObjectHideFlags: 0
