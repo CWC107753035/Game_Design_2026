@@ -5,7 +5,10 @@ public class PlayerCamera : MonoBehaviour
 {
     [Header("References")]
     public Transform target;
+    [Tooltip("Layers that forcefully push the camera inward (solid walls).")]
     public LayerMask wallLayers;
+    [Tooltip("Layers that turn transparent instead of blocking the camera (props, trees, etc).")]
+    public LayerMask fadeLayers;
 
     [Header("Position")]
     public float defaultDistance = 3f;
@@ -40,6 +43,11 @@ public class PlayerCamera : MonoBehaviour
 
     void Start()
     {
+        if (fadeLayers.value == 0)
+        {
+            Debug.LogWarning("[PlayerCamera] The 'Fade Layers' property is currently set to 'Nothing' in your Inspector! Please click on the camera and select the layers you want to fade out.");
+        }
+
         currentDistance = defaultDistance;
         currentFollowPos = target.position;
         yaw = transform.eulerAngles.y;
@@ -90,12 +98,9 @@ public class PlayerCamera : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
         Vector3 camDir = rotation * Vector3.back;
 
-        // Keep the camera distance fixed instead of pushing it inward
-        currentDistance = defaultDistance;
-
-        // Find objects blocking the view and make them transparent
-        RaycastHit[] hits = Physics.SphereCastAll(origin, castRadius, camDir, defaultDistance, wallLayers);
-        foreach (var hit in hits)
+        // 1. Check for Objects that we want to turn transparent
+        RaycastHit[] fadeHits = Physics.SphereCastAll(origin, castRadius, camDir, defaultDistance, fadeLayers);
+        foreach (var hit in fadeHits)
         {
             Renderer renderer = hit.collider.GetComponentInParent<Renderer>();
             if (renderer == null) renderer = hit.collider.GetComponentInChildren<Renderer>();
@@ -107,6 +112,18 @@ public class PlayerCamera : MonoBehaviour
                 fader.MarkForFadeOut();
             }
         }
+
+        // 2. Check for solid Walls that physically block the camera
+        float targetDistance = defaultDistance;
+        if (Physics.SphereCast(origin, castRadius, camDir, out RaycastHit wallHit, defaultDistance, wallLayers))
+        {
+            // Try to place the camera just in front of the wall
+            targetDistance = Mathf.Clamp(wallHit.distance, minDistance, defaultDistance);
+        }
+
+        // 3. Smoothly animate camera pushing inward (fast) or recovering outward (slow)
+        float speed = currentDistance > targetDistance ? wallPushSpeed : wallPullSpeed;
+        currentDistance = Mathf.SmoothDamp(currentDistance, targetDistance, ref distVelocity, 1f / speed);
     }
 
     void ApplyCameraTransform()

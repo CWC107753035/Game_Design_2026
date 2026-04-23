@@ -12,7 +12,7 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         var keyboard = Keyboard.current;
-        if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame)
+        if (keyboard != null && keyboard.pKey.wasPressedThisFrame)
         {
             if (_isPaused) Resume();
             else Pause();

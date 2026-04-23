@@ -19,6 +19,10 @@ public class DirtEraser : MonoBehaviour
     [Tooltip("Check this setting if THIS is the destination circle and you want it to act as a portal instantly without dirt!")]
     public bool isAlreadyCleanPortal = false;
     public static float globalTeleportCooldown = 0f;
+    [Tooltip("Radius around the center of the magic circle where teleporting will trigger. 1.0f is slightly smaller than a standard scaled plane.")]
+    public float triggerRadius = 1.0f;
+    [Tooltip("Maximum height above the portal where teleporting will trigger. Prevents mid-air teleports.")]
+    public float triggerHeight = 0.5f;
 
     [Header("Dirt Settings")]
     public float heightOffset = 0.05f;
@@ -114,7 +118,7 @@ public class DirtEraser : MonoBehaviour
         float horizontalDist = Vector3.Distance(new Vector3(character.position.x, 0, character.position.z), 
                                                 new Vector3(transform.position.x, 0, transform.position.z));
         float heightDiff = character.position.y - transform.position.y;
-        if (horizontalDist <= 2.5f && heightDiff >= -0.5f && heightDiff < 2.5f)
+        if (horizontalDist <= triggerRadius && heightDiff >= -0.5f && heightDiff <= triggerHeight)
         {
             currentlyInCircle = true;
         }
