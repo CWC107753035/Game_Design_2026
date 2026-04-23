@@ -90,34 +90,23 @@ public class PlayerCamera : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
         Vector3 camDir = rotation * Vector3.back;
 
-        float desiredDistance = defaultDistance;
+        // Keep the camera distance fixed instead of pushing it inward
+        currentDistance = defaultDistance;
 
-        if (Physics.Linecast(origin, origin + camDir * defaultDistance, 
-            out RaycastHit hit, wallLayers))
+        // Find objects blocking the view and make them transparent
+        RaycastHit[] hits = Physics.SphereCastAll(origin, castRadius, camDir, defaultDistance, wallLayers);
+        foreach (var hit in hits)
         {
-            desiredDistance = Mathf.Max(hit.distance - 0.05f, minDistance);
-        }
-
-        // Side rays for edge cases
-        Vector3 right = rotation * Vector3.right * 0.3f;
-        Vector3 up = rotation * Vector3.up * 0.3f;
-        foreach (var offset in new[] { right, -right, up, -up })
-        {
-            if (Physics.Linecast(origin + offset, 
-                origin + offset + camDir * defaultDistance,
-                out RaycastHit sideHit, wallLayers))
+            Renderer renderer = hit.collider.GetComponentInParent<Renderer>();
+            if (renderer == null) renderer = hit.collider.GetComponentInChildren<Renderer>();
+            
+            if (renderer != null)
             {
-                desiredDistance = Mathf.Min(desiredDistance,
-                    Mathf.Max(sideHit.distance - 0.05f, minDistance));
+                CameraObstacleFader fader = renderer.gameObject.GetComponent<CameraObstacleFader>();
+                if (fader == null) fader = renderer.gameObject.AddComponent<CameraObstacleFader>();
+                fader.MarkForFadeOut();
             }
         }
-
-        float smoothTime = desiredDistance < currentDistance
-            ? 1f / wallPushSpeed
-            : 1f / wallPullSpeed;
-
-        currentDistance = Mathf.SmoothDamp(
-            currentDistance, desiredDistance, ref distVelocity, smoothTime);
     }
 
     void ApplyCameraTransform()
