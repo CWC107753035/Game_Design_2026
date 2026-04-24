@@ -44,6 +44,12 @@ public class CheckpointManager : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
+        var controller = _player.GetComponent<Slime.ControllerTest>();
+        if (controller != null)
+        {
+            controller.externalVelocity = Vector3.zero;
+        }
+
         // 1. Force player back into base Slime form
         var slimePbf = _player.GetComponent<Slime.Slime_PBF>();
         if (slimePbf != null)

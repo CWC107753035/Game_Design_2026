@@ -63,6 +63,10 @@ public class IntermittentFire : MonoBehaviour
         }
     }
 
+    [Header("Behavior")]
+    [Tooltip("If true, this fire will only melt ice into water, but won't evaporate water into steam.")]
+    public bool onlyMeltIce = false;
+
     // Called either by Unity natively (if script is on particle object) OR by the Forwarder script.
     public void HandleParticleHit(GameObject other)
     {
@@ -70,7 +74,17 @@ public class IntermittentFire : MonoBehaviour
         
         if (slime != null)
         {
-            slime.HeatUp();
+            if (onlyMeltIce)
+            {
+                if (slime.isFrozen)
+                {
+                    slime.HeatUp();
+                }
+            }
+            else
+            {
+                slime.HeatUp();
+            }
         }
     }
 
