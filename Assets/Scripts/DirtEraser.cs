@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DirtEraser : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class DirtEraser : MonoBehaviour
     public Transform character;
 
     [Header("Portal Settings")]
+    [Tooltip("If true, finishing this dirt will act as a teleport portal. If false, it's just a cleanable surface.")]
+    public bool isPortal = true;
     [Tooltip("Check this if you want the portal to load a completely different scene instead of teleporting locally!")]
     public bool loadNewScene = false;
     public string targetSceneName = "";
@@ -25,7 +28,13 @@ public class DirtEraser : MonoBehaviour
     public float triggerHeight = 0.5f;
 
     [Header("Dirt Settings")]
+    [Tooltip("Direction to cast the cleaning ray. By default it casts globally DOWN. Change this if the dirt is on a wall! (e.g., (1,0,0) or (0,0,1))")]
+    public Vector3 raycastDirection = Vector3.down;
     public float heightOffset = 0.05f;
+    
+    [Header("Events")]
+    [Tooltip("Triggered when the dirt is fully erased! Great for puzzles.")]
+    public UnityEvent onDirtErased;
     public float brushSize = 0.05f;
     public int maskResolution = 512;
     [Range(0f, 1f)]
@@ -125,13 +134,16 @@ public class DirtEraser : MonoBehaviour
 
         if (isFinished)
         {
-            // Now fully operates as a two-way portal for any form!
-            // We ONLY trigger when they ENTER the circle (!wasInCircle). This cleanly prevents teleport loops.
-            if (currentlyInCircle && !wasInCircle && Time.time > globalTeleportCooldown)
+            if (isPortal)
             {
-                if (loadNewScene || teleportTarget != null)
+                // Now fully operates as a two-way portal for any form!
+                // We ONLY trigger when they ENTER the circle (!wasInCircle). This cleanly prevents teleport loops.
+                if (currentlyInCircle && !wasInCircle && Time.time > globalTeleportCooldown)
                 {
-                    PerformTeleport();
+                    if (loadNewScene || teleportTarget != null)
+                    {
+                        PerformTeleport();
+                    }
                 }
             }
 
@@ -167,7 +179,12 @@ public class DirtEraser : MonoBehaviour
             Destroy(dirtOverlayPlane);
         }
 
-        PerformTeleport();
+        onDirtErased?.Invoke();
+
+        if (isPortal)
+        {
+            PerformTeleport();
+        }
     }
 
     void PerformTeleport()
@@ -226,9 +243,9 @@ public class DirtEraser : MonoBehaviour
             return; // Exit out, do not erase!
         }
 
-        // Drop a tiny laser from above the character straight down to find EXACTLY where their feet hit the dirt
-        Vector3 rayStart = character.position + Vector3.up * 1f;
-        Ray ray = new Ray(rayStart, Vector3.down);
+        // Drop a tiny laser from the character towards the dirt surface to find EXACTLY where their feet hit
+        Vector3 rayStart = character.position - raycastDirection.normalized * 1f;
+        Ray ray = new Ray(rayStart, raycastDirection.normalized);
 
         if (overlayCollider.Raycast(ray, out RaycastHit hit, 3f))
         {
