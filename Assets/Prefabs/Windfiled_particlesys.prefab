@@ -4874,6 +4874,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WindField
   windStrength: 4.05
   windDirection: {x: 0, y: 5, z: 0}
+  checkObstacles: 1
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 507
 --- !u!1001 &2484365428477634
 PrefabInstance:
   m_ObjectHideFlags: 0
