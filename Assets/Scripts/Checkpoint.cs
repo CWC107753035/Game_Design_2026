@@ -6,7 +6,14 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            CheckpointManager.Instance.SetCheckpoint(transform.position);
+            if (CheckpointManager.Instance != null)
+            {
+                CheckpointManager.Instance.SetCheckpoint(transform.position);
+            }
+            else
+            {
+                Debug.LogWarning("You touched a checkpoint, but there is no 'CheckpointManager' in this scene! Please add one.");
+            }
         }
     }
 }
