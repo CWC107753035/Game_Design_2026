@@ -1,110 +1,75 @@
 using UnityEngine;
-using Slime;
 
 public class IntermittentFire : MonoBehaviour
 {
-    [Header("Fire Timers")]
-    [Tooltip("How long the fire stays active and emitting.")]
+    [Header("时间控制 (秒)")]
+    [Tooltip("游戏开始后，等待多久才开始第一次喷射")]
+    public float initialDelay = 0f;
+
+    [Tooltip("火焰单次喷射的持续时间")]
     public float timeOn = 2f;
-    
-    [Tooltip("How long the fire turns off and stops emitting.")]
+
+    [Tooltip("两次喷射之间的熄灭时间")]
     public float timeOff = 3f;
 
-    [Header("Particle System")]
-    [Tooltip("Drag your Fire Particle System here. Make sure 'Collision' and 'Send Collision Messages' are checked on the Particle System!")]
+    [Header("粒子系统")]
     public ParticleSystem fireParticles;
 
     private float _timer;
     private bool _isOn;
+    private bool _inInitialDelay;
 
     private void Start()
     {
-        // Start the trap in the ON state
-        _isOn = true;
-        _timer = timeOn;
-
-        if (fireParticles != null)
+        // 初始化计时逻辑
+        if (initialDelay > 0)
         {
-            if (!fireParticles.isPlaying) fireParticles.Play();
-
-            // If the particle system is on a child object, it won't trigger OnParticleCollision here.
-            // We dynamically attach a tiny script to the particles to bounce the collision message back!
-            if (fireParticles.gameObject != this.gameObject)
-            {
-                var forwarder = fireParticles.gameObject.GetComponent<ParticleCollisionForwarder>();
-                if (forwarder == null) forwarder = fireParticles.gameObject.AddComponent<ParticleCollisionForwarder>();
-                forwarder.parentFire = this;
-            }
+            _inInitialDelay = true;
+            _isOn = false;
+            _timer = initialDelay;
         }
+        else
+        {
+            _inInitialDelay = false;
+            _isOn = true;
+            _timer = timeOn;
+        }
+
+        // 初始视觉状态
+        UpdateFireVisuals();
     }
 
     private void Update()
     {
         _timer -= Time.deltaTime;
-        
-        // When the timer runs out, flip the state!
+
         if (_timer <= 0f)
         {
-            _isOn = !_isOn;
-            _timer = _isOn ? timeOn : timeOff;
-
-            if (fireParticles != null)
+            if (_inInitialDelay)
             {
-                if (_isOn)
-                {
-                    fireParticles.Play();
-                }
-                else
-                {
-                    // Stop emitting new particles, but let existing ones naturally fade away
-                    fireParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-                }
-            }
-        }
-    }
-
-    [Header("Behavior")]
-    [Tooltip("If true, this fire will only melt ice into water, but won't evaporate water into steam.")]
-    public bool onlyMeltIce = false;
-
-    // Called either by Unity natively (if script is on particle object) OR by the Forwarder script.
-    public void HandleParticleHit(GameObject other)
-    {
-        Slime_PBF slime = other.transform.root.GetComponentInChildren<Slime_PBF>();
-        
-        if (slime != null)
-        {
-            if (onlyMeltIce)
-            {
-                if (slime.isFrozen)
-                {
-                    slime.HeatUp();
-                }
+                _inInitialDelay = false;
+                _isOn = true;
+                _timer = timeOn;
             }
             else
             {
-                slime.HeatUp();
+                _isOn = !_isOn;
+                _timer = _isOn ? timeOn : timeOff;
             }
+
+            UpdateFireVisuals();
         }
     }
 
-    private void OnParticleCollision(GameObject other)
+    private void UpdateFireVisuals()
     {
-        HandleParticleHit(other);
-    }
-}
-
-// A tiny helper script that gets dynamically slapped onto child particle systems
-// to bounce the Unity message back up to the main script!
-public class ParticleCollisionForwarder : MonoBehaviour
-{
-    public IntermittentFire parentFire;
-
-    private void OnParticleCollision(GameObject other)
-    {
-        if (parentFire != null)
+        if (fireParticles != null)
         {
-            parentFire.HandleParticleHit(other);
+            if (_isOn)
+                fireParticles.Play();
+            else
+                // 停止发射新粒子，但允许已有的粒子飞完
+                fireParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 }
