@@ -4794,6 +4794,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6052374800186297662, guid: 425dc18d098694a4da952220fa26027f, type: 3}
+      propertyPath: onlyMeltIce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052374800186297662, guid: 425dc18d098694a4da952220fa26027f, type: 3}
       propertyPath: initialDelay
       value: 2
       objectReference: {fileID: 0}
@@ -12303,6 +12307,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 423780, guid: 5df4398968a81e04dadfc73e32ca7f79, type: 3}
   m_PrefabInstance: {fileID: 480103363}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &484423573 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1446534907548772, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
+  m_PrefabInstance: {fileID: 723528544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &486650027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14698,18 +14707,6 @@ PrefabInstance:
     - target: {fileID: 4942090032268611521, guid: 425dc18d098694a4da952220fa26027f, type: 3}
       propertyPath: m_Name
       value: Time_control_fire (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6052374800186297662, guid: 425dc18d098694a4da952220fa26027f, type: 3}
-      propertyPath: timeOn
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6052374800186297662, guid: 425dc18d098694a4da952220fa26027f, type: 3}
-      propertyPath: timeOff
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6052374800186297662, guid: 425dc18d098694a4da952220fa26027f, type: 3}
-      propertyPath: initialDelay
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19006,31 +19003,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.927406
+      value: -8.1
       objectReference: {fileID: 0}
     - target: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 32.53
+      value: 30.8
       objectReference: {fileID: 0}
     - target: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99114615
       objectReference: {fileID: 0}
     - target: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.13277537
       objectReference: {fileID: 0}
     - target: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 15.26
       objectReference: {fileID: 0}
     - target: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -19051,13 +19048,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1446534907548772, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 723528546}
   m_SourcePrefab: {fileID: 100100000, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
 --- !u!4 &723528545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4897382975628910, guid: cbf5141fea4108a4cbe512a4764b043f, type: 3}
   m_PrefabInstance: {fileID: 723528544}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &723528546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484423573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03a0454d484b384eac05cf64cf4f50f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IceSlideSurface
+  enableForIce: 1
+  slideAcceleration: 15
+  maxSlideSpeed: 20
+  enableForSlime: 0
+  slimeSlideAcceleration: 10
+  slimeMaxSlideSpeed: 10
 --- !u!1001 &725981704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34397,7 +34415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 449052, guid: 939f27c57ef13654eafcf37ff873a454, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.57
+      value: -21.01
       objectReference: {fileID: 0}
     - target: {fileID: 449052, guid: 939f27c57ef13654eafcf37ff873a454, type: 3}
       propertyPath: m_LocalPosition.y

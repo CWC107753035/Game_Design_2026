@@ -4601,10 +4601,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052ee17e3ead6004581ed5e49bdb469d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IntermittentFire
-  timeOn: 2
-  timeOff: 3
+  initialDelay: 1
+  timeOn: 3
+  timeOff: 5
+  onlyMeltIce: 1
   fireParticles: {fileID: 4314182232261438940}
-  onlyMeltIce: 0
 --- !u!1 &7712213014150964336
 GameObject:
   m_ObjectHideFlags: 0
