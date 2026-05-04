@@ -28,7 +28,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SM_Prop_Dwarf_Cog_Large_05
+  m_Name: cog2
   serializedVersion: 6
   m_AnimatorParameters: []
   m_AnimatorLayers:
