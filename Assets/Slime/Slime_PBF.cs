@@ -383,7 +383,7 @@ namespace Slime
 #endif
             }
 
-            if (concentration > 5 && !isFog)
+            if (concentration > 5)
             {
                 foreach (var slime in _slimeInstances)
                 {
@@ -739,7 +739,10 @@ namespace Slime
 
             // Pull all particles (including any stray pieces) toward the main body center
             float3 diff = (float3)trans.position * PBF_Utils.InvScale - center;
-            float3 toMain = math.normalizesafe(diff) * math.clamp(math.length(diff) * 3f, 10f, 60f);
+            
+            // INCREASED MULTIPLIER (from 3 to 15) AND CAP (from 60 to 300) 
+            // so the water particles snap tightly to the real Rigidbody position and never lag behind.
+            float3 toMain = math.normalizesafe(diff) * math.clamp(math.length(diff) * 15f, 20f, 300f);
 
             _controllerBuffer.Add(new ParticleController()
             {

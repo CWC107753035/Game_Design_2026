@@ -70,6 +70,12 @@ namespace Slime
             return false;
         }
 
+        [Header("Mass Settings")]
+        [Tooltip("Mass used for pushing physics objects like seesaws")]
+        public float waterMass = 10f;
+        public float iceMass = 25f;
+        public float fogMass = 1f;
+
         void FixedUpdate()
         {
             if (_jumpCooldown > 0f)
@@ -77,8 +83,21 @@ namespace Slime
             if (_jumpBufferTimer > 0f)
                 _jumpBufferTimer -= Time.fixedDeltaTime;
 
+            UpdateMass();
             ApplyManualGravity();
             HandleMovement();
+        }
+
+        private void UpdateMass()
+        {
+            if (_slimePbf == null || _rb == null) return;
+
+            if (_slimePbf.isFrozen)
+                _rb.mass = iceMass;
+            else if (_slimePbf.isFog)
+                _rb.mass = fogMass;
+            else
+                _rb.mass = waterMass;
         }
 
         private void ApplyManualGravity()
