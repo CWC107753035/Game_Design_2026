@@ -28,6 +28,9 @@ public class HeavyDropSwitch : MonoBehaviour
         // Check if it's the player
         if (collision.gameObject.CompareTag("Player"))
         {
+            Slime.Slime_PBF slimePbf = collision.gameObject.GetComponentInParent<Slime.Slime_PBF>();
+            if (slimePbf != null && !slimePbf.isFrozen) return;
+
             // The relative velocity tells us how hard the impact was.
             // Since the player is falling down, we check the relative velocity along the Y axis.
             // Alternatively, we can check the player's Rigidbody velocity before the collision.
@@ -54,6 +57,9 @@ public class HeavyDropSwitch : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
+            Slime.Slime_PBF slimePbf = other.GetComponentInParent<Slime.Slime_PBF>();
+            if (slimePbf != null && !slimePbf.isFrozen) return;
+
             Rigidbody playerRb = other.attachedRigidbody;
             if (playerRb != null)
             {

@@ -70,8 +70,26 @@ namespace Slime
 
         void LateUpdate()
         {
-            // Raycast down from the center of the player
-            if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out RaycastHit hit, maxShadowDistance + 0.1f, groundMask, QueryTriggerInteraction.Ignore))
+            RaycastHit[] hits = Physics.RaycastAll(transform.position + Vector3.up * 0.1f, Vector3.down, maxShadowDistance + 0.1f, groundMask, QueryTriggerInteraction.Ignore);
+            
+            bool hitValid = false;
+            RaycastHit hit = new RaycastHit();
+            float minDst = float.MaxValue;
+
+            foreach (var h in hits)
+            {
+                if (h.collider.transform.root != transform.root)
+                {
+                    if (h.distance < minDst)
+                    {
+                        minDst = h.distance;
+                        hit = h;
+                        hitValid = true;
+                    }
+                }
+            }
+
+            if (hitValid)
             {
                 _shadowQuad.SetActive(true);
                 

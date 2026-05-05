@@ -739,7 +739,7 @@ namespace Slime
 
             // Pull all particles (including any stray pieces) toward the main body center
             float3 diff = (float3)trans.position * PBF_Utils.InvScale - center;
-            float3 toMain = math.normalizesafe(diff) * math.clamp(math.length(diff) * 1.5f, 6f, 20f);
+            float3 toMain = math.normalizesafe(diff) * math.clamp(math.length(diff) * 3f, 10f, 60f);
 
             _controllerBuffer.Add(new ParticleController()
             {

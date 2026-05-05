@@ -4,44 +4,63 @@ using System.Collections;
 
 public class PopupMessage : MonoBehaviour
 {
-    public static PopupMessage Instance { get; private set; }
-
     [SerializeField] private GameObject popupPanel;
     [SerializeField] private TextMeshProUGUI messageText;
 
     private Coroutine _hideCoroutine;
 
-    void Awake()
+    // Static wrapper to find all instances and show them
+    public static void ShowAll(string message, float duration = 0f)
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
-        Instance = this;
+        PopupMessage[] allPopups = Resources.FindObjectsOfTypeAll<PopupMessage>();
+        foreach (var p in allPopups)
+        {
+            if (p.gameObject.scene.isLoaded) // Only affect objects in the active scene, not prefabs
+            {
+                p.InternalShow(message, duration);
+            }
+        }
     }
 
-    // Show message and stay until Hide() is called
-    public void Show(string message)
+    // Static wrapper to find all instances and hide them
+    public static void HideAll()
     {
+        PopupMessage[] allPopups = Resources.FindObjectsOfTypeAll<PopupMessage>();
+        foreach (var p in allPopups)
+        {
+            if (p.gameObject.scene.isLoaded)
+            {
+                p.InternalHide();
+            }
+        }
+    }
+
+    private void InternalShow(string message, float duration)
+    {
+        if (popupPanel == null) return; // Skip broken duplicates
+        if (messageText == null) return;
+
         if (_hideCoroutine != null) StopCoroutine(_hideCoroutine);
+        
         messageText.text = message;
         popupPanel.SetActive(true);
+
+        if (duration > 0f && gameObject.activeInHierarchy)
+        {
+            _hideCoroutine = StartCoroutine(HideAfter(duration));
+        }
     }
 
-    // Show message then auto-hide after duration (seconds)
-    public void Show(string message, float duration)
-    {
-        Show(message);
-        _hideCoroutine = StartCoroutine(HideAfter(duration));
-    }
-
-    public void Hide()
+    private void InternalHide()
     {
         if (_hideCoroutine != null) { StopCoroutine(_hideCoroutine); _hideCoroutine = null; }
-        popupPanel.SetActive(false);
+        if (popupPanel != null) popupPanel.SetActive(false);
     }
 
     private IEnumerator HideAfter(float duration)
     {
         yield return new WaitForSeconds(duration);
-        popupPanel.SetActive(false);
+        if (popupPanel != null) popupPanel.SetActive(false);
         _hideCoroutine = null;
     }
 }
