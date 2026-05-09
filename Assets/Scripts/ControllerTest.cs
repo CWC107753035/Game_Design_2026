@@ -40,6 +40,8 @@ namespace Slime
         {
             if (_jumpCooldown > 0f) return false;
 
+            if (isGroundedOverride) return true;
+
             // 1. Ice form creates wildly different mesh shapes.
             // We must find the absolute lowest physical point of the slime's body.
             float lowestY = transform.position.y;
@@ -112,6 +114,9 @@ namespace Slime
         public Vector3 externalVelocity = Vector3.zero;
         public float slideDecay = 2f; // How fast sliding momentum wears off
 
+        [HideInInspector] public bool disableForwardBack = false;
+        [HideInInspector] public bool isGroundedOverride = false;
+
         private void HandleMovement()
         {
             if (_rb == null) return;
@@ -120,8 +125,11 @@ namespace Slime
             var keyboard = Keyboard.current;
             if (keyboard != null)
             {
-                if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed) input.y += 1f;
-                if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed) input.y -= 1f;
+                if (!disableForwardBack)
+                {
+                    if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed) input.y += 1f;
+                    if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed) input.y -= 1f;
+                }
                 if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed) input.x -= 1f;
                 if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) input.x += 1f;
             }
