@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 using Slime;
 
 public class ButtonTrigger : MonoBehaviour
 {
+    [Tooltip("Leave empty if you only want to use the On Triggered event.")]
     public Animator doorAnimator;
     public Animator buttonAnimator;
+
+    [Header("Additional Actions")]
+    [Tooltip("Hook up your ProgressiveAnimation or any other custom scripts here!")]
+    public UnityEvent onTriggered;
 
     private bool _hasBeenPushed = false;
 
@@ -21,8 +27,21 @@ public class ButtonTrigger : MonoBehaviour
         if (slime.isFog)
             return;
 
-        doorAnimator.SetTrigger("open");
-        buttonAnimator.SetTrigger("push");
+        // Safely trigger the door if assigned
+        if (doorAnimator != null)
+        {
+            doorAnimator.SetTrigger("open");
+        }
+        
+        // Safely trigger the button if assigned
+        if (buttonAnimator != null)
+        {
+            buttonAnimator.SetTrigger("push");
+        }
+
+        // Trigger any custom events (like ProgressiveAnimation.PlayNextSegment)
+        onTriggered?.Invoke();
+
         _hasBeenPushed = true;
     }
 }
