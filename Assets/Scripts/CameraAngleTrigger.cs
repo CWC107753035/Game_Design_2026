@@ -13,13 +13,34 @@ public class CameraAngleTrigger : MonoBehaviour
     public float overrideDistance = -1f;
 
     private PlayerCamera playerCam;
+    private Collider triggerCollider;
+    private Transform playerTransform;
+    private bool isPlayerInside = false;
 
     void Start()
     {
+        triggerCollider = GetComponent<Collider>();
+
         // Try to find the camera at start if possible
         if (Camera.main != null)
         {
             playerCam = Camera.main.GetComponent<PlayerCamera>();
+        }
+    }
+
+    void Update()
+    {
+        // Fallback robust check: if player moves too fast, OnTriggerExit might not fire.
+        // We manually verify if the player is still inside the collider.
+        if (isPlayerInside && playerTransform != null && triggerCollider != null)
+        {
+            Vector3 closestPoint = triggerCollider.ClosestPoint(playerTransform.position);
+            // If the closest point to the player on the collider is not the player's position,
+            // it means the player is outside the collider.
+            if (Vector3.Distance(playerTransform.position, closestPoint) > 0.1f)
+            {
+                PlayerExited();
+            }
         }
     }
 
@@ -28,6 +49,9 @@ public class CameraAngleTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("[CameraAngleTrigger] Player entered trigger.");
+            playerTransform = other.transform;
+            isPlayerInside = true;
+
             if (playerCam == null)
             {
                 if (Camera.main != null)
@@ -53,6 +77,18 @@ public class CameraAngleTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            PlayerExited();
+        }
+    }
+
+    void PlayerExited()
+    {
+        if (isPlayerInside)
+        {
+            Debug.Log("[CameraAngleTrigger] Player exited trigger.");
+            isPlayerInside = false;
+            playerTransform = null;
+
             if (playerCam != null)
             {
                 playerCam.ResetCameraOverride();

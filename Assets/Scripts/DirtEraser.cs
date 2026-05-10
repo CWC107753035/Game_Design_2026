@@ -33,8 +33,11 @@ public class DirtEraser : MonoBehaviour
     public float heightOffset = 0.05f;
     
     [Header("Events")]
-    [Tooltip("Triggered when the dirt is fully erased! Great for puzzles.")]
+    [Tooltip("Triggered ONCE when the dirt is fully erased! Great for puzzles.")]
     public UnityEvent onDirtErased;
+    
+    [Tooltip("Triggered EVERY TIME the portal teleports the player (both the first time, and any time they walk into it again).")]
+    public UnityEvent onPortalTeleport;
     public float brushSize = 0.05f;
     public int maskResolution = 512;
     [Range(0f, 1f)]
@@ -231,6 +234,7 @@ public class DirtEraser : MonoBehaviour
             cam.SnapToTarget();
         }
 
+        onPortalTeleport?.Invoke();
         Debug.Log("Teleporting to: " + teleportTarget.name);
     }
 
