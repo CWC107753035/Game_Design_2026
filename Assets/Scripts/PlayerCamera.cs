@@ -35,6 +35,9 @@ public class PlayerCamera : MonoBehaviour
 
     private float yaw = 0f;
     private float pitch = 20f;
+    private float targetYaw;
+    private float targetPitch;
+    private float targetDistanceBase;
     private float currentDistance;
     private float distVelocity = 0f;
     private Vector3 posVelocityXZ;
@@ -57,11 +60,17 @@ public class PlayerCamera : MonoBehaviour
         Cursor.visible = false;
         yaw = fixedYaw;
         pitch = fixedPitch;
+        targetYaw = fixedYaw;
+        targetPitch = fixedPitch;
+        targetDistanceBase = defaultDistance;
     }
 
     void LateUpdate()
     {
         if (target == null) return;
+
+        yaw = Mathf.LerpAngle(yaw, targetYaw, Time.deltaTime * rotationSpeed);
+        pitch = Mathf.LerpAngle(pitch, targetPitch, Time.deltaTime * rotationSpeed);
 
         // HandleRotationInput();
         SmoothFollowTarget();
@@ -114,11 +123,11 @@ public class PlayerCamera : MonoBehaviour
         }
 
         // 2. Check for solid Walls that physically block the camera
-        float targetDistance = defaultDistance;
-        if (Physics.SphereCast(origin, castRadius, camDir, out RaycastHit wallHit, defaultDistance, wallLayers))
+        float targetDistance = targetDistanceBase;
+        if (Physics.SphereCast(origin, castRadius, camDir, out RaycastHit wallHit, targetDistanceBase, wallLayers))
         {
             // Try to place the camera just in front of the wall
-            targetDistance = Mathf.Clamp(wallHit.distance, minDistance, defaultDistance);
+            targetDistance = Mathf.Clamp(wallHit.distance, minDistance, targetDistanceBase);
         }
 
         // 3. Smoothly animate camera pushing inward (fast) or recovering outward (slow)
@@ -144,5 +153,24 @@ public class PlayerCamera : MonoBehaviour
             posVelocityY = 0f;
             ApplyCameraTransform();
         }
+    }
+
+    public void SetCameraOverride(float newPitch, float newYaw, float newDistance = -1f)
+    {
+        Debug.Log($"[PlayerCamera] SetCameraOverride: Pitch={newPitch}, Yaw={newYaw}, Distance={newDistance}");
+        targetPitch = newPitch;
+        targetYaw = newYaw;
+        if (newDistance > 0)
+        {
+            targetDistanceBase = newDistance;
+        }
+    }
+
+    public void ResetCameraOverride()
+    {
+        Debug.Log("[PlayerCamera] ResetCameraOverride called");
+        targetPitch = fixedPitch;
+        targetYaw = fixedYaw;
+        targetDistanceBase = defaultDistance;
     }
 }

@@ -58,11 +58,15 @@ public class CogSwitch : MonoBehaviour
     [Tooltip("Fires continuously with a value from 0.0 (closed) to 1.0 (open) when in Door Mechanism Mode. Hook this to your doors!")]
     public UnityEvent<float> onMechanismProgress;
 
+    [Tooltip("Fired exactly once when the cog reaches the fully open state in Door Mechanism Mode.")]
+    public UnityEvent onFullyOpened;
+
     private float currentSpinVelocity = 0f;
     private float spinDirection = 1f;
     private bool isSlimeStanding = false;
     private bool isTriggered = false;
     private bool hasReachedMaxSpeed = false;
+    private bool hasFiredFullyOpened = false;
     
     // Door mechanism variables
     private float accumulatedAngle = 0f;
@@ -256,6 +260,13 @@ public class CogSwitch : MonoBehaviour
                 deltaAngle = progressDelta * openingDirection;
                 accumulatedAngle = degreesToFullyOpen;
                 currentSpinVelocity = 0f; // hard stop
+
+                if (!hasFiredFullyOpened)
+                {
+                    hasFiredFullyOpened = true;
+                    Debug.Log("CogSwitch: Door Mechanism is FULLY OPENED! Firing event.");
+                    onFullyOpened?.Invoke();
+                }
             }
             else if (nextAngle <= 0f)
             {
@@ -264,6 +275,7 @@ public class CogSwitch : MonoBehaviour
                 deltaAngle = progressDelta * -openingDirection;
                 accumulatedAngle = 0f;
                 currentSpinVelocity = 0f; // hard stop
+                hasFiredFullyOpened = false; // Reset the flag
             }
             else
             {
@@ -296,6 +308,7 @@ public class CogSwitch : MonoBehaviour
             if (absSpeed >= maxSpinSpeed - 0.1f && !hasReachedMaxSpeed)
             {
                 hasReachedMaxSpeed = true;
+                Debug.Log("CogSwitch: Infinite Spin reached MAX SPEED! Firing event.");
                 onMaxSpeedReached?.Invoke();
             }
             else if (absSpeed < maxSpinSpeed - 0.1f && hasReachedMaxSpeed)

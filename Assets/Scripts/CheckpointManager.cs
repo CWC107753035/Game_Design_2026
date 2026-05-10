@@ -44,6 +44,9 @@ public class CheckpointManager : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
+        // Unparent the player in case they died while standing on a moving platform
+        _player.SetParent(null);
+
         var controller = _player.GetComponent<Slime.ControllerTest>();
         if (controller != null)
         {
