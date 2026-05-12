@@ -129,6 +129,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonTrigger
   doorAnimator: {fileID: 0}
   buttonAnimator: {fileID: 436855705573112941}
+  onTriggered:
+    m_PersistentCalls:
+      m_Calls: []
+  buttonClickSound: {fileID: 8300000, guid: cf1ed6363e93968438b7ee806f5b506e, type: 3}
 --- !u!1 &6284878225882816134
 GameObject:
   m_ObjectHideFlags: 0

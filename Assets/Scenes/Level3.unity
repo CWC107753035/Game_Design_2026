@@ -62870,6 +62870,8 @@ MonoBehaviour:
   normalSphereRadius: 0.25
   fogParticles: {fileID: 159481409}
   trans: {fileID: 1781740684}
+  heatUpSound: {fileID: 8300000, guid: d37865aa12e53654fa24f1f4123c2028, type: 3}
+  freezeSound: {fileID: 8300000, guid: 8a0dc014dd301194eb604d2ce8eabf23, type: 3}
   renderMode: 1
   blockNum: 0
   bubblesNum: 0

@@ -62,6 +62,11 @@ namespace Slime
 
         public Transform trans;
 
+        [Header("Audio Settings")]
+        public AudioClip heatUpSound;
+        public AudioClip freezeSound;
+        private AudioSource _audioSource;
+
         public void HeatUp()
         {
             if (Time.time - _lastFormChangeTime < 1.0f) return;
@@ -163,6 +168,9 @@ namespace Slime
 
         void Start()
         {
+            _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null) _audioSource = gameObject.AddComponent<AudioSource>();
+
             _particles = new NativeArray<Particle>(PBF_Utils.Num, Allocator.Persistent);
             float half = PBF_Utils.Width / 2.0f;
             
@@ -337,6 +345,8 @@ namespace Slime
             if (isFog && !_wasFog)
             {
                 _wasFog = true;
+                if (_audioSource != null && heatUpSound != null) _audioSource.PlayOneShot(heatUpSound);
+
                 if (fogParticles != null)
                 {
                     fogParticles.gameObject.SetActive(true); 
@@ -349,6 +359,8 @@ namespace Slime
             else if (!isFog && _wasFog)
             {
                 _wasFog = false;
+                if (_audioSource != null && freezeSound != null) _audioSource.PlayOneShot(freezeSound);
+
                 if (fogParticles != null) fogParticles.Stop();
                 // Restore normal radius
                 if (TryGetComponent<SphereCollider>(out var sc))
@@ -403,6 +415,8 @@ namespace Slime
             if (isFrozen && !_wasFrozen)
             {
                 _wasFrozen = true;
+                if (_audioSource != null && freezeSound != null) _audioSource.PlayOneShot(freezeSound);
+
                 new Simulation_PBF.RecordOffsetsJob
                 {
                     Ps = _particles,
@@ -452,6 +466,7 @@ namespace Slime
             else if (!isFrozen && _wasFrozen)
             {
                 _wasFrozen = false;
+                if (_audioSource != null && heatUpSound != null) _audioSource.PlayOneShot(heatUpSound);
                 
                 Transform frozenColl = trans.Find("FrozenCollider");
                 if (frozenColl != null)

@@ -12,7 +12,22 @@ public class ButtonTrigger : MonoBehaviour
     [Tooltip("Hook up your ProgressiveAnimation or any other custom scripts here!")]
     public UnityEvent onTriggered;
 
+    [Header("Audio")]
+    [Tooltip("The sound to play when the button is pushed.")]
+    public AudioClip buttonClickSound;
+    private AudioSource _audioSource;
+
     private bool _hasBeenPushed = false;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.playOnAwake = false;
+        }
+    }
 
     // This runs when the player steps into the button's trigger area
     private void OnTriggerEnter(Collider other)
@@ -41,6 +56,11 @@ public class ButtonTrigger : MonoBehaviour
 
         // Trigger any custom events (like ProgressiveAnimation.PlayNextSegment)
         onTriggered?.Invoke();
+
+        if (_audioSource != null && buttonClickSound != null)
+        {
+            _audioSource.PlayOneShot(buttonClickSound);
+        }
 
         _hasBeenPushed = true;
     }
