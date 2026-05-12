@@ -61,6 +61,11 @@ public class CogSwitch : MonoBehaviour
     [Tooltip("Fired exactly once when the cog reaches the fully open state in Door Mechanism Mode.")]
     public UnityEvent onFullyOpened;
 
+    [Header("Audio Settings")]
+    [Tooltip("The sound effect to loop while the cog is spinning.")]
+    public AudioClip spinSound;
+    private AudioSource _audioSource;
+
     private float currentSpinVelocity = 0f;
     private float spinDirection = 1f;
     private bool isSlimeStanding = false;
@@ -87,6 +92,17 @@ public class CogSwitch : MonoBehaviour
         if (!allowAnyDirection)
         {
             openingDirection = Mathf.Sign(requiredSpinDirection);
+        }
+
+        if (spinSound != null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.clip = spinSound;
+            _audioSource.loop = true;
+            _audioSource.playOnAwake = false;
+            _audioSource.spatialBlend = 1f; // 3D sound
+            _audioSource.minDistance = 2f;
+            _audioSource.maxDistance = 15f;
         }
     }
 
@@ -320,6 +336,31 @@ public class CogSwitch : MonoBehaviour
             {
                 Quaternion localDeltaRotation = Quaternion.Euler(spinAxis.normalized * (currentSpinVelocity * Time.fixedDeltaTime));
                 rb.MoveRotation(rb.rotation * localDeltaRotation);
+            }
+        }
+
+        // Audio handling
+        if (_audioSource != null && spinSound != null)
+        {
+            float speedPercent = maxSpinSpeed > 0f ? Mathf.Abs(currentSpinVelocity) / maxSpinSpeed : 0f;
+            
+            if (speedPercent > 0.01f)
+            {
+                if (!_audioSource.isPlaying)
+                {
+                    _audioSource.Play();
+                }
+                
+                // Modulate pitch and volume based on how fast it's spinning!
+                _audioSource.volume = Mathf.Lerp(0.1f, 1.0f, speedPercent);
+                _audioSource.pitch = Mathf.Lerp(0.8f, 1.2f, speedPercent);
+            }
+            else
+            {
+                if (_audioSource.isPlaying)
+                {
+                    _audioSource.Stop();
+                }
             }
         }
 

@@ -454,3 +454,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onFullyOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  spinSound: {fileID: 8300000, guid: b5687edd9d0ad5e42bb275f0ac338dfe, type: 3}
