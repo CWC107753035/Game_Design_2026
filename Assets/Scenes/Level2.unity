@@ -451,7 +451,7 @@ PrefabInstance:
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: teleportSound
       value: 
-      objectReference: {fileID: 8300000, guid: 18ee025faf1f5e242a7cf5a61af848f5, type: 3}
+      objectReference: {fileID: 8300000, guid: 71ce002bedbec4d469be0cc5154740c5, type: 3}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: teleportTarget
       value: 
