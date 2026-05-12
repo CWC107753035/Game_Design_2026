@@ -35,21 +35,28 @@ public class CameraAngleTrigger : MonoBehaviour
         if (isPlayerInside && playerTransform != null && triggerCollider != null)
         {
             Vector3 closestPoint = triggerCollider.ClosestPoint(playerTransform.position);
-            // If the closest point to the player on the collider is not the player's position,
-            // it means the player is outside the collider.
-            if (Vector3.Distance(playerTransform.position, closestPoint) > 0.1f)
+            // Use a generous threshold (5 units) because ClosestPoint returns the nearest
+            // point on the SURFACE of the box. When the player is inside the box, the distance
+            // to the nearest wall can easily be 1-2 units. The old 0.1f value was way too strict.
+            if (Vector3.Distance(playerTransform.position, closestPoint) > 5.0f)
             {
                 PlayerExited();
             }
         }
     }
 
+    // We detect the player by searching for the Slime_PBF component in the parent hierarchy,
+    // just like ButtonTrigger does. This is much more reliable than CompareTag("Player")
+    // because the slime has multiple child colliders, and child GameObjects do NOT inherit
+    // the parent's "Player" tag. With CompareTag, a trigger would only fire if the specific
+    // root collider entered — which depends entirely on the trigger's rotation and position.
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        Slime.Slime_PBF slime = other.GetComponentInParent<Slime.Slime_PBF>();
+        if (slime != null)
         {
-            Debug.Log("[CameraAngleTrigger] Player entered trigger.");
-            playerTransform = other.transform;
+            Debug.Log($"[CameraAngleTrigger] Player entered trigger: {gameObject.name}");
+            playerTransform = slime.transform; // Always use the ROOT slime transform
             isPlayerInside = true;
 
             if (playerCam == null)
@@ -75,7 +82,8 @@ public class CameraAngleTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        Slime.Slime_PBF slime = other.GetComponentInParent<Slime.Slime_PBF>();
+        if (slime != null)
         {
             PlayerExited();
         }
@@ -85,7 +93,7 @@ public class CameraAngleTrigger : MonoBehaviour
     {
         if (isPlayerInside)
         {
-            Debug.Log("[CameraAngleTrigger] Player exited trigger.");
+            Debug.Log($"[CameraAngleTrigger] Player exited trigger: {gameObject.name}");
             isPlayerInside = false;
             playerTransform = null;
 

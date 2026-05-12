@@ -35,6 +35,8 @@ public class DirtEraser : MonoBehaviour
     [Header("Audio Settings")]
     [Tooltip("Sound effect to play when the slime is erasing dirt. Will loop while erasing.")]
     public AudioClip washSound;
+    [Tooltip("Sound effect to play when the player teleports through the magic circle.")]
+    public AudioClip teleportSound;
     private AudioSource _audioSource;
 
     [Header("Events")]
@@ -217,6 +219,16 @@ public class DirtEraser : MonoBehaviour
 
     void PerformTeleport()
     {
+        if (teleportSound != null)
+        {
+            // Create a temporary 2D audio source so it doesn't get quiet when the player teleports far away!
+            GameObject tempAudio = new GameObject("TempTeleportAudio");
+            AudioSource tempSource = tempAudio.AddComponent<AudioSource>();
+            tempSource.spatialBlend = 0f; // 2D sound, heard perfectly everywhere
+            tempSource.PlayOneShot(teleportSound);
+            Destroy(tempAudio, teleportSound.length + 0.1f); // Clean up after playing
+        }
+
         // Apply a global cooldown so we don't instantly teleport back as soon as we arrive!
         globalTeleportCooldown = Time.time + 1.5f;
 
