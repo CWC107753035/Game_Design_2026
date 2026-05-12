@@ -441,9 +441,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1518845645}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: washSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6156e25a580f193449aeead445db2eba, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: loadNewScene
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 18ee025faf1f5e242a7cf5a61af848f5, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: teleportTarget
       value: 
       objectReference: {fileID: 228404417}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: targetSceneName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: isAlreadyCleanPortal
       value: 1
@@ -946,6 +962,148 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2086053975221554981, guid: ba9ce09af46d39842bcdcca9f1afc6b4, type: 3}
   m_PrefabInstance: {fileID: 176575789}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &490591539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 490591541}
+  - component: {fileID: 490591540}
+  - component: {fileID: 490591542}
+  m_Layer: 0
+  m_Name: BGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &490591540
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490591539}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 7d87d480289ee1e4d9476b25a20d5699, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &490591541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490591539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -38.48758, y: -18.89283, z: -214.7433}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &490591542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490591539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e628c41d4d17f04d995810e368daabf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BGMManager
 --- !u!1001 &521336863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1419,9 +1577,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1518845645}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: washSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6156e25a580f193449aeead445db2eba, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: dirtMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 524e4e1fb9855e74e9d1a16aa21fb551, type: 2}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: loadNewScene
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ce002bedbec4d469be0cc5154740c5, type: 3}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: eraseThreshold
       value: 0.4
@@ -1430,6 +1600,10 @@ PrefabInstance:
       propertyPath: teleportTarget
       value: 
       objectReference: {fileID: 1037711100}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: targetSceneName
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7329,7 +7503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622b4647247d3b04fa1b49b5b05093ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Seesaw
-  maxTiltAngle: 70
+  maxTiltAngle: 50
   massSensitivity: 15
   returnSpeed: 1
   rotationAxis: {x: 1, y: 0, z: 0}
@@ -8078,11 +8252,14 @@ MonoBehaviour:
   groundRayLength: 0.5
   jumpBufferTime: 0.15
   fogJumpCooldown: 2.6
+  jumpSound: {fileID: 8300000, guid: 5f4ad1ccae5a61f449533e33610deff2, type: 3}
   waterMass: 10
   iceMass: 25
   fogMass: 1
   externalVelocity: {x: 0, y: 0, z: 0}
   slideDecay: 2
+  disableForwardBack: 0
+  isGroundedOverride: 0
 --- !u!135 &1518845642
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8165,6 +8342,8 @@ MonoBehaviour:
   normalSphereRadius: 0.25
   fogParticles: {fileID: 1037538201}
   trans: {fileID: 1518845645}
+  heatUpSound: {fileID: 8300000, guid: d37865aa12e53654fa24f1f4123c2028, type: 3}
+  freezeSound: {fileID: 8300000, guid: 8a0dc014dd301194eb604d2ce8eabf23, type: 3}
   renderMode: 1
   blockNum: 0
   bubblesNum: 0
@@ -9186,9 +9365,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1518845645}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: washSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6156e25a580f193449aeead445db2eba, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: loadNewScene
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ce002bedbec4d469be0cc5154740c5, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: teleportTarget
       value: 
       objectReference: {fileID: 228404417}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: targetSceneName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: isAlreadyCleanPortal
       value: 1
@@ -9370,3 +9565,4 @@ SceneRoots:
   - {fileID: 781081049}
   - {fileID: 1611928095}
   - {fileID: 1887746741}
+  - {fileID: 490591541}

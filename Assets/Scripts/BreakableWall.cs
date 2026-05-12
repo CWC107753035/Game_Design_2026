@@ -3,37 +3,41 @@ using Slime;
 
 public class FracturedWall : MonoBehaviour
 {
-    [Header("Åö×²ÉèÖÃ")]
-    [SerializeField] private float breakVelocity = 5f; // ´¥·¢ËéÁÑµÄËÙ¶ÈãĞÖµ
-    [SerializeField] private float explosionForce = 500f; // ×²»÷Ê±µÄ³åÁ¦
-    [SerializeField] private float explosionRadius = 2f; // ³åÁ¦Ó°Ïì·¶Î§
+    [Header("ç ´å£Šè¨­å®š")]
+    [SerializeField] private float breakVelocity = 5f; // å£ã‚’å£Šã™ã®ã«å¿…è¦ãªé€Ÿåº¦
+    [SerializeField] private float explosionForce = 500f; // çˆ†ç™ºã®åŠ›
+    [SerializeField] private float explosionRadius = 2f; // çˆ†ç™ºã®åŠå¾„
 
     private bool isBroken = false;
     private Rigidbody[] fragments;
+    private AudioClip breakSound;
 
     void Start()
     {
-        // »ñÈ¡ËùÓĞ×ÓËé¿éµÄ Rigidbody
+        // ã™ã¹ã¦ã®å­ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã® Rigidbody
         fragments = GetComponentsInChildren<Rigidbody>();
 
-        // ³õÊ¼»¯£ºÈÃËé¿é¾²Ö¹²»¶¯£¬²»ÊÜÖØÁ¦Ó°Ïì
+        // æœ€åˆã¯ã™ã¹ã¦ã®ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚’å›ºå®šã™ã‚‹
         foreach (var rb in fragments)
         {
             rb.isKinematic = true;
             rb.useGravity = false;
         }
+
+        // Auto-load the ice crack sound from Resources folder â€” no need to drag it in manually!
+        breakSound = Resources.Load<AudioClip>("ice_crack");
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (isBroken) return;
 
-        // »ñÈ¡Íæ¼Ò½Å±¾
+        // ã‚¹ãƒ©ã‚¤ãƒ ã‹ãƒã‚§ãƒƒã‚¯
         Slime_PBF slime = collision.gameObject.GetComponentInParent<Slime_PBF>();
 
         if (slime != null && slime.isFrozen)
         {
-            // ¼ì²é×²»÷ËÙ¶È
+            // é€Ÿåº¦ãŒååˆ†ã‹ç¢ºèª
             if (collision.relativeVelocity.magnitude > breakVelocity)
             {
                 Explode(collision.contacts[0].point);
@@ -45,20 +49,29 @@ public class FracturedWall : MonoBehaviour
     {
         isBroken = true;
 
+        // Play the break sound as a 2D sound so the player always hears it clearly
+        if (breakSound != null)
+        {
+            GameObject tempAudio = new GameObject("TempBreakAudio");
+            AudioSource tempSource = tempAudio.AddComponent<AudioSource>();
+            tempSource.spatialBlend = 0f; // 2D sound
+            tempSource.PlayOneShot(breakSound);
+            Destroy(tempAudio, breakSound.length + 0.1f);
+        }
+
         foreach (var rb in fragments)
         {
-            // ¼¤»îÎïÀíÒıÇæ
+            // ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚’è§£æ”¾
             rb.isKinematic = false;
             rb.useGravity = true;
 
-            // ¸øÃ¿¸öËéÆ¬Ê©¼ÓÒ»¸öÏòÍâµÄ±¬Õ¨Á¦£¬ÈÃËéÁÑ¸ü×ÔÈ»
+            // çˆ†ç™ºåŠ›ã‚’åŠ ãˆã‚‹
             rb.AddExplosionForce(explosionForce, hitPoint, explosionRadius);
 
-            // (¿ÉÑ¡) ¼¸ÃëºóÏú»ÙĞ¡ËéÆ¬ÒÔ½ÚÊ¡ĞÔÄÜ
+            // ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚’æ™‚é–“å¾Œã«å‰Šé™¤
             Destroy(rb.gameObject, 5f);
         }
 
-        // ËéÁÑºó½ûÓÃ¸¸ÎïÌåµÄÅö×²Æ÷»ò×ÔÉí½Å±¾
-        Debug.Log("±ùÇ½ÒÑËéÁÑ£¡");
+        Debug.Log("å£ãŒç ´å£Šã•ã‚ŒãŸï¼");
     }
 }

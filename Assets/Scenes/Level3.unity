@@ -27789,9 +27789,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1781740684}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: washSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6156e25a580f193449aeead445db2eba, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: loadNewScene
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ce002bedbec4d469be0cc5154740c5, type: 3}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: teleportTarget
       value: 
@@ -30755,6 +30763,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1781740684}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: washSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6156e25a580f193449aeead445db2eba, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: dirtMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 524e4e1fb9855e74e9d1a16aa21fb551, type: 2}
@@ -30762,6 +30774,10 @@ PrefabInstance:
       propertyPath: loadNewScene
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ce002bedbec4d469be0cc5154740c5, type: 3}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: eraseThreshold
       value: 0.55
@@ -33924,6 +33940,10 @@ PrefabInstance:
       propertyPath: loadNewScene
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ce002bedbec4d469be0cc5154740c5, type: 3}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: teleportTarget
       value: 
@@ -49021,9 +49041,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1781740684}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: washSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6156e25a580f193449aeead445db2eba, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: loadNewScene
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ce002bedbec4d469be0cc5154740c5, type: 3}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: teleportTarget
       value: 
@@ -63285,6 +63313,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1781740684}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: washSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6156e25a580f193449aeead445db2eba, type: 3}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: dirtMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 524e4e1fb9855e74e9d1a16aa21fb551, type: 2}
@@ -63292,6 +63324,10 @@ PrefabInstance:
       propertyPath: loadNewScene
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
+      propertyPath: teleportSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ce002bedbec4d469be0cc5154740c5, type: 3}
     - target: {fileID: 8781762898274528869, guid: 8488c5c575c56be4db6cc1539a2de2f8, type: 3}
       propertyPath: eraseThreshold
       value: 0.4
@@ -64745,6 +64781,7 @@ MonoBehaviour:
   heatColor: {r: 1, g: 0, b: 0.093075156, a: 1}
   fadeToNormalDuration: 2
   fadeToRedDuration: 5
+  heatWaveSound: {fileID: 8300000, guid: 0c63fae9e4b6bab4d802227905f7beb9, type: 3}
 --- !u!4 &1850683513
 Transform:
   m_ObjectHideFlags: 0

@@ -30,6 +30,10 @@ public class PeriodicHeatWave : MonoBehaviour
     [Tooltip("How long it takes to fade from Normal to Red before the next heat wave.")]
     public float fadeToRedDuration = 5f;
 
+    [Header("Audio Settings")]
+    [Tooltip("Sound effect to play when the heat wave hits. Plays at full volume everywhere (2D).")]
+    public AudioClip heatWaveSound;
+
     private float timer;
     private bool isWarningActive = false;
     private Slime_PBF slime;
@@ -117,6 +121,16 @@ public class PeriodicHeatWave : MonoBehaviour
             {
                 if (ps != null) ps.Stop();
             }
+        }
+
+        // Play the heat wave sound as a global 2D sound so the player hears it everywhere
+        if (heatWaveSound != null)
+        {
+            GameObject tempAudio = new GameObject("TempHeatWaveAudio");
+            AudioSource tempSource = tempAudio.AddComponent<AudioSource>();
+            tempSource.spatialBlend = 0f; // 2D — not affected by distance
+            tempSource.PlayOneShot(heatWaveSound);
+            Destroy(tempAudio, heatWaveSound.length + 0.1f);
         }
 
         // If slime was destroyed or not found yet, try finding it again
