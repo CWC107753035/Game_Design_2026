@@ -126,20 +126,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61ebe87f4d8fa342bf6854f42d0afd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtEraser
-  dirtMaterial: {fileID: 0}
+  dirtMaterial: {fileID: 2100000, guid: 524e4e1fb9855e74e9d1a16aa21fb551, type: 2}
   character: {fileID: 0}
   isPortal: 1
-  loadNewScene: 0
-  targetSceneName: 
+  loadNewScene: 1
+  targetSceneName: Level1
   teleportTarget: {fileID: 0}
   isAlreadyCleanPortal: 0
   triggerRadius: 1
   triggerHeight: 0.5
   raycastDirection: {x: 0, y: -1, z: 0}
   heightOffset: 0.05
+  washSound: {fileID: 8300000, guid: 7019d421ea81d314b818e4b9729bb060, type: 3}
   onDirtErased:
+    m_PersistentCalls:
+      m_Calls: []
+  onPortalTeleport:
     m_PersistentCalls:
       m_Calls: []
   brushSize: 0.05
   maskResolution: 512
-  eraseThreshold: 0.6
+  eraseThreshold: 0.4

@@ -11,6 +11,10 @@ namespace Slime
         [SerializeField] private float jumpBufferTime = 0.15f;
         [SerializeField] private float fogJumpCooldown = 2f; // Tune in Inspector
 
+        [Header("Audio Settings")]
+        public AudioClip jumpSound;
+        private AudioSource _audioSource;
+
         private Rigidbody _rb;
         private Slime_PBF _slimePbf;
         private float _jumpCooldown = 0f;
@@ -23,6 +27,10 @@ namespace Slime
 
             if (_rb != null)
                 _rb.useGravity = false;
+
+            _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null)
+                _audioSource = gameObject.AddComponent<AudioSource>();
         }
 
         // Read jump in Update so FixedUpdate never misses a press
@@ -163,6 +171,11 @@ namespace Slime
                 
                 // CRITICAL: We must stop forcing the player downwards so the jump can actually launch them into the air!
                 externalVelocity.y = 0f; 
+
+                if (_audioSource != null && jumpSound != null)
+                {
+                    _audioSource.PlayOneShot(jumpSound);
+                }
             }
 
             _rb.linearVelocity = targetVelocity;

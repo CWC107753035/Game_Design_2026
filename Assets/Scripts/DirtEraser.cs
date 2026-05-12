@@ -32,6 +32,11 @@ public class DirtEraser : MonoBehaviour
     public Vector3 raycastDirection = Vector3.down;
     public float heightOffset = 0.05f;
     
+    [Header("Audio Settings")]
+    [Tooltip("Sound effect to play when the slime is erasing dirt. Will loop while erasing.")]
+    public AudioClip washSound;
+    private AudioSource _audioSource;
+
     [Header("Events")]
     [Tooltip("Triggered ONCE when the dirt is fully erased! Great for puzzles.")]
     public UnityEvent onDirtErased;
@@ -91,6 +96,14 @@ public class DirtEraser : MonoBehaviour
 
         // 4. Mesh Cloning Pipeline
         CreateAutoDirtOverlay();
+        if (washSound != null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.clip = washSound;
+            _audioSource.loop = true;
+            _audioSource.playOnAwake = false;
+            _audioSource.spatialBlend = 1f; // 3D sound
+        }
     }
 
     void CreateAutoDirtOverlay()
@@ -155,7 +168,18 @@ public class DirtEraser : MonoBehaviour
         }
 
         wasInCircle = currentlyInCircle;
-        EraseAtCharacterPosition();
+        bool erasedSomething = EraseAtCharacterPosition();
+
+        if (erasedSomething)
+        {
+            if (_audioSource != null && !_audioSource.isPlaying)
+                _audioSource.Play();
+        }
+        else
+        {
+            if (_audioSource != null && _audioSource.isPlaying)
+                _audioSource.Stop();
+        }
 
         if (isDirty)
         {
@@ -176,6 +200,7 @@ public class DirtEraser : MonoBehaviour
     void TriggerCompletion()
     {
         isFinished = true;
+        if (_audioSource != null && _audioSource.isPlaying) _audioSource.Stop();
 
         if (dirtOverlayPlane != null)
         {
@@ -238,13 +263,13 @@ public class DirtEraser : MonoBehaviour
         Debug.Log("Teleporting to: " + teleportTarget.name);
     }
 
-    void EraseAtCharacterPosition()
+    bool EraseAtCharacterPosition()
     {
         // Feature: Only the base SLIME form can erase dirt! (Not Ice or Steam)
         Slime.Slime_PBF slime = character.GetComponent<Slime.Slime_PBF>();
         if (slime != null && (slime.isFog || slime.isFrozen))
         {
-            return; // Exit out, do not erase!
+            return false; // Exit out, do not erase!
         }
 
         // Drop a tiny laser from the character towards the dirt surface to find EXACTLY where their feet hit
@@ -261,6 +286,7 @@ public class DirtEraser : MonoBehaviour
             int pixelX = Mathf.RoundToInt(u * drawTexture.width);
             int pixelY = Mathf.RoundToInt(v * drawTexture.height);
             int brushPixels = Mathf.RoundToInt(brushSize * drawTexture.width);
+            bool erasedSomething = false;
 
             for (int x = -brushPixels; x <= brushPixels; x++)
             {
@@ -278,12 +304,18 @@ public class DirtEraser : MonoBehaviour
                         clearedPixels[pixelIndex] = true;
                         clearedPixelsCount++;
                         drawTexture.SetPixel(px, py, Color.clear);
+                        erasedSomething = true;
                     }
                 }
             }
 
-            drawTexture.Apply();
-            isDirty = true;
+            if (erasedSomething)
+            {
+                drawTexture.Apply();
+                isDirty = true;
+                return true;
+            }
         }
+        return false;
     }
 }
