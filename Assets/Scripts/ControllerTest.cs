@@ -10,6 +10,7 @@ namespace Slime
         [SerializeField] private float groundRayLength = 1.2f;
         [SerializeField] private float jumpBufferTime = 0.15f;
         [SerializeField] private float fogJumpCooldown = 2f; // Tune in Inspector
+        [SerializeField] private float maxFogSpeed = 15f; // Velocity cap in fog form to prevent tunneling
 
         [Header("Audio Settings")]
         public AudioClip jumpSound;
@@ -96,6 +97,7 @@ namespace Slime
             UpdateMass();
             ApplyManualGravity();
             HandleMovement();
+            HandleFogPhysics();
         }
 
         private void UpdateMass()
@@ -183,6 +185,33 @@ namespace Slime
             // Gradually slow down the sliding push so it eventually stops when they reach flat ground
             // Or if they hit a wall.
             externalVelocity = Vector3.MoveTowards(externalVelocity, Vector3.zero, slideDecay * Time.fixedDeltaTime);
+        }
+
+        /// <summary>
+        /// Prevents the fog form from tunneling through walls by:
+        /// 1. Switching to ContinuousDynamic collision detection (sweep-based)
+        /// 2. Clamping max velocity so it can't outrun the physics solver
+        /// </summary>
+        private void HandleFogPhysics()
+        {
+            if (_slimePbf == null || _rb == null) return;
+
+            if (_slimePbf.isFog)
+            {
+                // ContinuousDynamic uses swept collision so fast objects can't skip through walls
+                if (_rb.collisionDetectionMode != CollisionDetectionMode.ContinuousDynamic)
+                    _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+                // Clamp velocity so the fog can't reach unreasonable speeds
+                if (_rb.linearVelocity.magnitude > maxFogSpeed)
+                    _rb.linearVelocity = _rb.linearVelocity.normalized * maxFogSpeed;
+            }
+            else
+            {
+                // Revert to Discrete for performance when not in fog form
+                if (_rb.collisionDetectionMode != CollisionDetectionMode.Discrete)
+                    _rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            }
         }
     }
 }
