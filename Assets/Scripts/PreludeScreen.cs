@@ -45,11 +45,6 @@ public class PreludeScreen : MonoBehaviour
             if (canvasGroup.alpha <= 0f)
             {
                 Time.timeScale = 1f; // Unpause the game
-                if (showOnlyOnce)
-                {
-                    PlayerPrefs.SetInt("PreludeShown", 1);
-                    PlayerPrefs.Save();
-                }
                 gameObject.SetActive(false);
             }
             return;
@@ -60,6 +55,14 @@ public class PreludeScreen : MonoBehaviour
         {
             isDismissing = true;
             canvasGroup.blocksRaycasts = false;
+
+            // Save IMMEDIATELY when dismissed, not after fade
+            if (showOnlyOnce)
+            {
+                PlayerPrefs.SetInt("PreludeShown", 1);
+                PlayerPrefs.Save();
+                Debug.Log("[PreludeScreen] Marked as shown. Will not show again.");
+            }
         }
     }
 }
