@@ -163,6 +163,7 @@ MonoBehaviour:
   triggerOnlyOnce: 1
   buttonAnimator: {fileID: 8808304282861557834}
   pushDownTriggerName: PushDown
+  switchSound: {fileID: 8300000, guid: 9c5247fd35683434ca67dfd1ba7f4548, type: 3}
   onHeavyDropTriggered:
     m_PersistentCalls:
       m_Calls: []

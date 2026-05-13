@@ -15,11 +15,26 @@ public class HeavyDropSwitch : MonoBehaviour
     [Tooltip("The trigger parameter name in the Animator to play the push down animation.")]
     public string pushDownTriggerName = "PushDown";
 
+    [Header("Audio")]
+    [Tooltip("The sound to play when the switch is triggered.")]
+    public AudioClip switchSound;
+
     [Header("Events")]
     [Tooltip("Events triggered when the button is successfully pressed by a heavy drop (e.g., open a door, play a sound).")]
     public UnityEvent onHeavyDropTriggered;
 
     private bool _isPressed = false;
+    private AudioSource _audioSource;
+
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.playOnAwake = false;
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -83,7 +98,13 @@ public class HeavyDropSwitch : MonoBehaviour
             buttonAnimator.SetTrigger(pushDownTriggerName);
         }
 
-        // 2. Trigger any other events (like another object's animation)
+        // 2. Play sound effect
+        if (_audioSource != null && switchSound != null)
+        {
+            _audioSource.PlayOneShot(switchSound);
+        }
+
+        // 3. Trigger any other events (like another object's animation)
         onHeavyDropTriggered?.Invoke();
     }
 }

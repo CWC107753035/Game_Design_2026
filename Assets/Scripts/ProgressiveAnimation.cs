@@ -17,10 +17,15 @@ public class ProgressiveAnimation : MonoBehaviour
     [Tooltip("The total length of the animation in seconds (e.g., 20).")]
     public float totalAnimationLength = 20f;
 
+    [Header("Audio")]
+    [Tooltip("Sound to play each time a segment is triggered. Played at full volume regardless of distance.")]
+    public AudioClip triggerSound;
+
     private float _targetTime = 0f;
     private float _timeElapsed = 0f;
     private bool _isPlaying = false;
     private bool _hasStarted = false;
+    private AudioSource _audioSource;
 
     private void Start()
     {
@@ -35,6 +40,15 @@ public class ProgressiveAnimation : MonoBehaviour
                 targetAnimator.Play(animationStateName, 0, 0f);
             }
         }
+
+        // Set up a 2D AudioSource so the sound is distance-independent
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.playOnAwake = false;
+        }
+        _audioSource.spatialBlend = 0f; // 0 = fully 2D (no distance attenuation)
     }
 
     // Call this method from your HeavyDropSwitch or CogSwitch UnityEvent!
@@ -56,6 +70,12 @@ public class ProgressiveAnimation : MonoBehaviour
         }
 
         _isPlaying = true;
+
+        // Play the trigger sound (2D, full volume regardless of distance)
+        if (_audioSource != null && triggerSound != null)
+        {
+            _audioSource.PlayOneShot(triggerSound);
+        }
         
         if (targetAnimator != null)
         {
